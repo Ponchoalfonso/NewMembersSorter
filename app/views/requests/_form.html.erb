@@ -1,0 +1,45 @@
+<%= form_for(@request) do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+      <% @request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :examMark %><br>
+    <%= f.text_field :examMark %>
+  </div>
+  <div class="field">
+    <%= f.label :schoolAverage %><br>
+    <%= f.text_field :schoolAverage %>
+  </div>
+  <div class="field">
+    <%= f.label :isRecommended %><br>
+    <%= f.check_box :isRecommended %>
+  </div>
+  <div class="field">
+    <%= f.label :isForeign %><br>
+    <%= f.check_box :isForeign %>
+  </div>
+  <div class="field">
+    <%= f.label :speciality %><br>
+    <%= f.number_field :speciality %>
+  </div>
+  <div class="field">
+    <%= f.label :secondSpeciality %><br>
+    <%= f.number_field :secondSpeciality %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

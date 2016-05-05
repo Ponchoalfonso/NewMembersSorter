@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @request.name %>
+</p>
+
+<p>
+  <strong>Exammark:</strong>
+  <%= @request.examMark %>
+</p>
+
+<p>
+  <strong>Schoolaverage:</strong>
+  <%= @request.schoolAverage %>
+</p>
+
+<p>
+  <strong>Isrecommended:</strong>
+  <%= @request.isRecommended %>
+</p>
+
+<p>
+  <strong>Isforeign:</strong>
+  <%= @request.isForeign %>
+</p>
+
+<p>
+  <strong>Speciality:</strong>
+  <%= @request.speciality %>
+</p>
+
+<p>
+  <strong>Secondspeciality:</strong>
+  <%= @request.secondSpeciality %>
+</p>
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>

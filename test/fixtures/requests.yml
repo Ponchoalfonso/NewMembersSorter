@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  examMark: 9.99
+  schoolAverage: 9.99
+  isRecommended: false
+  isForeign: false
+  speciality: 1
+  secondSpeciality: 1
+
+two:
+  name: MyString
+  examMark: 9.99
+  schoolAverage: 9.99
+  isRecommended: false
+  isForeign: false
+  speciality: 1
+  secondSpeciality: 1
