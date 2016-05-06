@@ -1,10 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Requests</h1>
+<p>Cantidad de registros actuales: <%= Request.all.length %> </p>
+<%= link_to 'New Request', new_request_path %>
 
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Exammark</th>
       <th>Schoolaverage</th>
@@ -19,6 +22,7 @@
   <tbody>
     <% @requests.each do |request| %>
       <tr>
+        <td><%= request.id %></td>
         <td><%= request.name %></td>
         <td><%= request.examMark %></td>
         <td><%= request.schoolAverage %></td>
@@ -33,7 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Request', new_request_path %>
