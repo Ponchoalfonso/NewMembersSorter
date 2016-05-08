@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Requests</h1>
-<p>Cantidad de registros actuales: <%= Request.all.length %> </p>
+<p>Cantidad de registros actual: <%= Request.all.length %> </p>
+<p>Cantidad de recomendados actual: <%= Request.where(isRecommended: true).length %> </p>
+<p>Cantidad de foraneaos actual: <%= Request.where(isForeign: true).length %> </p>
 <%= link_to 'New Request', new_request_path %>
 
 <table>
