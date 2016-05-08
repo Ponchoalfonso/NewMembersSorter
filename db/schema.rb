@@ -11,7 +11,91 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505182447) do
+ActiveRecord::Schema.define(version: 20160508213908) do
+
+  create_table "admi_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "meca_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "requests", force: :cascade do |t|
     t.string   "name"

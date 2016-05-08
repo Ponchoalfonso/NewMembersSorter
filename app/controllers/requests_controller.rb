@@ -5,8 +5,6 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @requests = Request.all
-    @foreigns = Request.find_by isForeign: true
-    @recommended = Request.find_by isRecommended: true
   end
 
   # GET /requests/1

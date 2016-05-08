@@ -1,0 +1,12 @@
+Matutino
+2 Programacion 2Admin 1 Contabilidad 1 Electronica
+
+Vespertino
+2 Programacion 1Admin 1 Contabilidad 1 Electronica 1 Mecanica
+
+Modelos:
+Request
+
+PrograMA PrograMB AdmiMA AdmiMB ContaMA ElectroMA
+
+PrograVA PrograVB AdminVA ContaVA ElectroVA MecaVA
