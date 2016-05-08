@@ -7,10 +7,7 @@ class GroupsController < ApplicationController
 
   def generate
     @recommended = Request.where(isRecommended: true)
-    @accepted
-    Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").find_each do |request|
-      @accepted = @accepted+request
-    end
+    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(300)
   end
 
   #Methods, apartir de aqui solo metodos privados
