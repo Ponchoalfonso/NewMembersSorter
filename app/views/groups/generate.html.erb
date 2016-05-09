@@ -12,16 +12,22 @@
           <th>Nombre</th>
           <th>Calificacion Examen</th>
           <th>Calificacion Secundaria</th>
+          <th>Especialidad Primaria</th>
+          <th>Especilidad Secundaria</th>
         </tr>
       </thead>
       <tbody>
-        <% @acceptedM.each do |accept| %>
-        <tr>
-          <td><%= accept.id %></td>
-          <td><%= accept.name %></td>
-          <td><%= accept.examMark %></td>
-          <td><%= accept.schoolAverage %></td>
-        </tr>
+        <% @acceptedM.each do |n| %>
+          <% n.each do |accept|%>
+          <tr>
+            <td><%= accept.id %></td>
+            <td><%= accept.name %></td>
+            <td><%= accept.examMark %></td>
+            <td><%= accept.schoolAverage %></td>
+            <td><%= accept.speciality %></td>
+            <td><%= accept.secondSpeciality %></td>
+          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
@@ -35,16 +41,22 @@
           <th>Nombre</th>
           <th>Calificacion Examen</th>
           <th>Calificacion Secundaria</th>
+          <th>Especialidad Primaria</th>
+          <th>Especilidad Secundaria</th>
         </tr>
       </thead>
       <tbody>
-        <% @acceptedV.each do |accept| %>
-        <tr>
-          <td><%= accept.id %></td>
-          <td><%= accept.name %></td>
-          <td><%= accept.examMark %></td>
-          <td><%= accept.schoolAverage %></td>
-        </tr>
+        <% @acceptedV.each do |n| %>
+          <% n.each do |accept|%>
+          <tr>
+            <td><%= accept.id %></td>
+            <td><%= accept.name %></td>
+            <td><%= accept.examMark %></td>
+            <td><%= accept.schoolAverage %></td>
+            <td><%= accept.speciality %></td>
+            <td><%= accept.secondSpeciality %></td>
+          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
