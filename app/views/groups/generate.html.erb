@@ -3,6 +3,8 @@
     <h1>Prueba meh</h1>
   </header>
   <section>
+    <h2>Turno Matutiono</h2>
+    <!-- Inicia !-->
     <table>
       <thead>
         <tr>
@@ -13,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @accepted.each do |accept| %>
+        <% @acceptedM.each do |accept| %>
         <tr>
           <td><%= accept.id %></td>
           <td><%= accept.name %></td>
@@ -23,5 +25,29 @@
         <% end %>
       </tbody>
     </table>
+    <!-- Acaba !-->
+    <h2>Turno Vespertino</h2>
+    <!-- Inicia !-->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Calificacion Examen</th>
+          <th>Calificacion Secundaria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @acceptedV.each do |accept| %>
+        <tr>
+          <td><%= accept.id %></td>
+          <td><%= accept.name %></td>
+          <td><%= accept.examMark %></td>
+          <td><%= accept.schoolAverage %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- Acaba !-->
   </section>
 </div>
