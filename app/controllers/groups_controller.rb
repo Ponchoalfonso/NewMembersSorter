@@ -6,9 +6,31 @@ class GroupsController < ApplicationController
   end
 
   def generate
+    @prograMA = Request.where(speciality:1)
     @recommended = Request.where(isRecommended: true)
     @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(300)
+    #Creo dos variables array que contendran a los alumnos separados
+    @acceptedM = Array.new
+    @acceptedV = Array.new
+    @electroMA = Array.new
+    @adminMA = Array.new
+    @contaMA = Array.new
+
     splitIntoTurns(@accepted)
+=begin
+    @acceptedM.each do |m|
+        case m.speciality
+        when 1
+          puts "Programacion"
+        when 2
+          puts"administracion"
+        when 3
+          puts"electronica"
+        when 4
+          puts"contabilidad"
+        end
+    end
+=end
   end #generate
 
   # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -17,11 +39,6 @@ class GroupsController < ApplicationController
 
   private
   def splitIntoTurns(accepted)
-
-    #Creo dos variables array que contendran a los alumnos separados
-    @acceptedM = Array.new
-    @acceptedV = Array.new
-
     #Mando a los usuarios de mecanica directamente al turno vespertino\
     mecha = accepted.where(speciality: 5)
     for i in(1..mecha.length)
