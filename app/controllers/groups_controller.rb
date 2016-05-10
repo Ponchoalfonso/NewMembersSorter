@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
   end
 
   def generate
+
     @recommended = Request.where(isRecommended: true)
     @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(300)
 
@@ -39,7 +40,7 @@ class GroupsController < ApplicationController
 
     #Enviamos a los alumnos a sus respectivos grupos
     sendToSpeciality("matutino")
-    #sendToGroup("vespertino")
+    sendToSpeciality("vespertino")
 
   end #generate
 
@@ -129,7 +130,7 @@ class GroupsController < ApplicationController
           if @AdminVA.length < 25
             @AdminVA.push(m)
           else
-            @acceptedMV.push(m)
+            @acceptedVS.push(m)
           end
         #Termina When 2
         when 3
