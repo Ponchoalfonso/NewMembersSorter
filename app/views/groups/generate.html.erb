@@ -18,18 +18,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @acceptedM.each do |n| %>
-          <% n.each do |accept|%>
-          <tr>
-            <td><%= accept.id %></td>
-            <td><%= accept.name %></td>
-            <td><%= accept.examMark %></td>
-            <td><%= accept.schoolAverage %></td>
-            <td><%= accept.speciality %></td>
-            <td><%= accept.secondSpeciality %></td>
-            <td><%= accept.isForeign%></td>
-          </tr>
-          <% end %>
+        <% @acceptedM.each do |accept| %>
+        <tr>
+          <td><%= accept.id %></td>
+          <td><%= accept.name %></td>
+          <td><%= accept.examMark %></td>
+          <td><%= accept.schoolAverage %></td>
+          <td><%= accept.speciality %></td>
+          <td><%= accept.secondSpeciality %></td>
+          <td><%= accept.isForeign%></td>
+        </tr>
         <% end %>
       </tbody>
     </table>
@@ -49,18 +47,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @acceptedV.each do |n| %>
-          <% n.each do |accept|%>
-          <tr>
-            <td><%= accept.id %></td>
-            <td><%= accept.name %></td>
-            <td><%= accept.examMark %></td>
-            <td><%= accept.schoolAverage %></td>
-            <td><%= accept.speciality %></td>
-            <td><%= accept.secondSpeciality %></td>
-            <td><%= accept.isForeign %></td>
-          </tr>
-          <% end %>
+        <% @acceptedV.each do |accept| %>
+        <tr>
+          <td><%= accept.id %></td>
+          <td><%= accept.name %></td>
+          <td><%= accept.examMark %></td>
+          <td><%= accept.schoolAverage %></td>
+          <td><%= accept.speciality %></td>
+          <td><%= accept.secondSpeciality %></td>
+          <td><%= accept.isForeign %></td>
+        </tr>
         <% end %>
       </tbody>
     </table>
