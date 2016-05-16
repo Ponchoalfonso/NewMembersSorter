@@ -9,7 +9,7 @@ class CreateRequests < ActiveRecord::Migration
       t.integer :speciality
       t.integer :secondSpeciality
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

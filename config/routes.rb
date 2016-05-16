@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :requests
+  resources :requests do
+    collection {post :import}
+  end
 
   get 'groups' => 'groups#index'
   get 'groups/generate' => 'groups#generate'
