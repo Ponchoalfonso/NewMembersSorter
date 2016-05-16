@@ -53,8 +53,11 @@ class GroupsController < ApplicationController
     #Mando a los usuarios de mecanica directamente al turno vespertino\
     @acceptedV = accepted.where(speciality: 5)
 
+    #Manda a los usurarios recomendados
+    @acceptedM = @recommended
+
     #Manda a los alumnos foraneos directamente al turno matutino
-    @acceptedM = accepted.where(isForeign: true).where.not(speciality: 5)
+    @acceptedM += accepted.where(isForeign: true).where.not(speciality: 5)
 
     #Separamos al resto en dos grupos
     accepted = accepted.where.not(speciality: 5).where(isForeign: false)

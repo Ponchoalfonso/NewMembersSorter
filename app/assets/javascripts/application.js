@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var screenWidth = $(window).width();
+
+$(document).ready(function(){
+  $('section').css('width', (screenWidth/5)*3);
+  $('header').css('width', screenWidth);
+  $('.sideBar').css('width', (screenWidth/5)*1.2);
+  console.log("Hancho de pantalla ajustado a "+screenWidth);
+});

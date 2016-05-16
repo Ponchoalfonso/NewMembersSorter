@@ -13,3 +13,113 @@
  *= require_tree .
  *= require_self
  */
+
+/********************************************
+*  Ajustes del cuerpo entero de la páagina  *
+********************************************/
+*{
+  font-family: 'Oxygen', sans-serif;
+  margin: 0px;
+}
+
+body{
+  background-color: #d5d5d5;
+}
+
+.baseBox{
+  display: flex;
+}
+
+/****************************
+*  Estilos predeterminados  *
+****************************/
+
+.title{
+  font-size: 1em;
+}
+
+.title h1{
+  font-weight: 400;
+}
+
+header{
+  width: 1366px;
+  height: 4.1em;
+  background: white;
+  border-bottom: solid 1px;
+  border-color: #bfbfbf;
+}
+
+/***************Predeterminado******************
+*  Diseño del encabezado de la aplicación web  *
+***********************************************/
+
+/*Título encabezado*/
+header .title{
+  margin-left: 1em;
+  padding-right: 1em;
+  border-right: solid 1px;
+  border-color: #bfbfbf;
+}
+
+header .title span{
+  font-size: 2em;
+  margin-top: 0.55em;
+  margin-right: 0.4em;
+}
+
+/*Barra de navegación*/
+.navBar{
+  margin-top: 1.4em;
+}
+
+.navBar nav ul li{
+  font-size: 1.2em;
+  display: inline-block;
+  border-right: solid 1px;
+  border-color: #bfbfbf;
+  padding-right: 6px;
+  padding-left: 5px;
+}
+
+.navBar nav ul li a{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
+}
+
+.navBar nav ul li a:hover{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
+  color: #23bbbf;
+}
+
+.navBar nav ul .excluded{
+  border-right: none;
+}
+
+/*Opción de inicio de sesión*/
+.logIn{
+  cursor: pointer;
+  margin-left: 29em;
+  margin-right: 8em;
+  margin-top: 1.4em;
+}
+
+.logIn span{
+  margin-right: 0.6em;
+  font-size: 1.4em;
+}
+
+.logIn a{
+  font-size: 1.2em
+}
+
+.sideBar{
+  margin-left: 1em;
+  margin-top: 1em;
+  position fixed;
+  border: solid 1px;
+  border-color: #bfbfbf;
+}
