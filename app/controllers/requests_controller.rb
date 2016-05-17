@@ -61,6 +61,11 @@ class RequestsController < ApplicationController
     end
   end
 
+  def import
+    Request.import(params[:file])
+    redirect_to requests_url, notice: "la base de datos fue importada correctamente"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request

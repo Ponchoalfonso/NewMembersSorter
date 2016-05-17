@@ -5,7 +5,12 @@
 <p>Cantidad de recomendados actual: <%= Request.where(isRecommended: true).length %> </p>
 <p>Cantidad de foraneaos actual: <%= Request.where(isForeign: true).length %> </p>
 <%= link_to 'New Request', new_request_path %>
+<h2>importar base de datos </h2>
 
+<%= form_tag import_requests_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Importar" %>
+<% end %>
 <table>
   <thead>
     <tr>
