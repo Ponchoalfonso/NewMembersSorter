@@ -23,7 +23,8 @@
 }
 
 body{
-  background-color: #d5d5d5;
+  width: 100%;
+  background-color: #ededed;
 }
 
 .baseBox{
@@ -43,11 +44,11 @@ body{
 }
 
 header{
-  width: 1366px;
-  height: 4.1em;
+  width: 100%;
+  height: 4.1%;
   background: white;
   border-bottom: solid 1px;
-  border-color: #bfbfbf;
+  border-color: #d4d4d4;
 }
 
 /***************Predeterminado******************
@@ -59,7 +60,7 @@ header .title{
   margin-left: 1em;
   padding-right: 1em;
   border-right: solid 1px;
-  border-color: #bfbfbf;
+  border-color: #d4d4d4;
 }
 
 header .title span{
@@ -77,7 +78,7 @@ header .title span{
   font-size: 1.2em;
   display: inline-block;
   border-right: solid 1px;
-  border-color: #bfbfbf;
+  border-color: #d4d4d4;
   padding-right: 6px;
   padding-left: 5px;
 }
@@ -100,10 +101,9 @@ header .title span{
 }
 
 /*Opción de inicio de sesión*/
-.logIn{
+header .logIn{
   cursor: pointer;
-  margin-left: 29em;
-  margin-right: 8em;
+  margin-left: 30%;
   margin-top: 1.4em;
 }
 
@@ -116,10 +116,71 @@ header .title span{
   font-size: 1.2em
 }
 
+/*******************Predeterminado**********************
+*  Diseño de opciones en sideBar de la aplicación web  *
+*******************************************************/
+
 .sideBar{
-  margin-left: 1em;
-  margin-top: 1em;
-  position fixed;
+  margin-left: 1%;
+  margin-top: 3%;
+  position: fixed;
+  width: 23%;
+}
+
+/********************Predeterminado************************
+*  Diseño de las zonas de contenido de la aplicación web  *
+**********************************************************/
+
+.content{
+  background: white;
+  height: 80%;
+  width: 70%;
+  margin-left: 26%;
+  margin-top: 3%;
+  position: fixed;
   border: solid 1px;
-  border-color: #bfbfbf;
+  border-color: #d4d4d4;
+}
+
+/*Título del contenido*/
+.subtitle{
+  margin-top: 3%;
+  border-bottom: solid 1px;
+  border-color: #d4d4d4;
+  width: 100%;
+}
+
+.subtitle span{
+  font-size: 2em;
+  margin-left: 8%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-right: 2%;
+}
+
+.subtitle div{
+  margin-left: 1%;
+}
+
+.subtitle h2{
+  font-weight: 400;
+  font-size: 2em;
+  margin-bottom: 2%;
+}
+
+.subtitle p{
+  font-weight: 300;
+  font-size: 1.1em;
+  margin-bottom: 5%;
+}
+
+/*Contenido*/
+.info{
+  margin-top: 1%;
+  margin-right: 2%;
+  margin-left: 3%;
+}
+
+.info p{
+  font-size: 1.1em
 }
