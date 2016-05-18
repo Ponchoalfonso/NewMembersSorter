@@ -27,6 +27,21 @@ body{
   background-color: #ededed;
 }
 
+a{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
+  color: #23bbbf;
+}
+
 .baseBox{
   display: flex;
 }
@@ -36,7 +51,7 @@ body{
 ****************************/
 
 .title{
-  font-size: 1em;
+  font-size: 0.7em;
 }
 
 .title h1{
@@ -44,8 +59,9 @@ body{
 }
 
 header{
+  position: fixed;
   width: 100%;
-  height: 4.1%;
+  height: 3.7em;
   background: white;
   border-bottom: solid 1px;
   border-color: #d4d4d4;
@@ -64,18 +80,18 @@ header .title{
 }
 
 header .title span{
-  font-size: 2em;
+  font-size: 2.6em;
   margin-top: 0.55em;
   margin-right: 0.4em;
 }
 
 /*Barra de navegación*/
 .navBar{
-  margin-top: 1.4em;
+  margin-top: 1.3em;
 }
 
 .navBar nav ul li{
-  font-size: 1.2em;
+  font-size: 1em;
   display: inline-block;
   border-right: solid 1px;
   border-color: #d4d4d4;
@@ -83,28 +99,26 @@ header .title span{
   padding-left: 5px;
 }
 
-.navBar nav ul li a{
-  -webkit-transition: all 350ms ease;
-  -o-transition: all 350ms ease;
-  transition: all 350ms ease;
-}
-
-.navBar nav ul li a:hover{
-  -webkit-transition: all 350ms ease;
-  -o-transition: all 350ms ease;
-  transition: all 350ms ease;
-  color: #23bbbf;
-}
-
 .navBar nav ul .excluded{
   border-right: none;
 }
 
 /*Opción de inicio de sesión*/
-header .logIn{
+.logIn{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
   cursor: pointer;
-  margin-left: 30%;
-  margin-top: 1.4em;
+  right: 4%;
+  position: absolute;
+  margin-top: 1.1em;
+}
+
+.logIn:hover{
+  -webkit-transition: all 350ms ease;
+  -o-transition: all 350ms ease;
+  transition: all 350ms ease;
+  color: #23bbbf;
 }
 
 .logIn span{
@@ -113,7 +127,12 @@ header .logIn{
 }
 
 .logIn a{
-  font-size: 1.2em
+  margin-top: 0.15em;
+  font-size: 1em;
+}
+
+.secondary{
+  margin-top: 7%;
 }
 
 /*******************Predeterminado**********************
@@ -122,7 +141,6 @@ header .logIn{
 
 .sideBar{
   margin-left: 1%;
-  margin-top: 3%;
   position: fixed;
   width: 23%;
 }
@@ -133,11 +151,9 @@ header .logIn{
 
 .content{
   background: white;
-  height: 80%;
   width: 70%;
   margin-left: 26%;
-  margin-top: 3%;
-  position: fixed;
+  margin-bottom: 4%;
   border: solid 1px;
   border-color: #d4d4d4;
 }
@@ -164,13 +180,13 @@ header .logIn{
 
 .subtitle h2{
   font-weight: 400;
-  font-size: 2em;
-  margin-bottom: 2%;
+  font-size: 1.5em;
+  margin-bottom: 0.1%;
 }
 
 .subtitle p{
   font-weight: 300;
-  font-size: 1.1em;
+  font-size: 1em;
   margin-bottom: 5%;
 }
 
@@ -181,6 +197,12 @@ header .logIn{
   margin-left: 3%;
 }
 
-.info p{
-  font-size: 1.1em
+.info p, ul li{
+  font-size: 0.95em;
+  margin-bottom: 2%;
+  text-align: justify;
+}
+
+.info ul li{
+  display: block;
 }

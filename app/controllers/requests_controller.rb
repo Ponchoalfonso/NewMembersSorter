@@ -4,7 +4,7 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all.order("examMark DESC", "schoolAverage DESC")
+    @requests = Request.all
   end
 
   # GET /requests/1
@@ -59,6 +59,11 @@ class RequestsController < ApplicationController
       format.html { redirect_to requests_url, notice: 'Request was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Request.import(params[:file])
+    redirect_to requests_url, notice: "la base de datos fue importada correctamente"
   end
 
   private

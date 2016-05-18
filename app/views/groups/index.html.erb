@@ -1,24 +1,56 @@
-<div>
+<div class="baseBox">
   <%= render 'header' %>
-  <aside class="sideBar">
-    <div class="subtitle baseBox">
-      <h2>Acciones</h2>
-    </div>
-  </aside>
-  <section class="content">
-    <div>
+  <div class="secondary">
+    <aside class="sideBar">
       <div class="subtitle baseBox">
-        <span class="icon-file-text2 baseBox"></span>
-        <div>
-          <h2>Generar grupos</h2>
-          <p>Aquí puedes generar los grupos de forma definitiva.</p>
+        <h2>Acciones</h2>
+      </div>
+    </aside>
+    <section class="content">
+      <div>
+        <div class="subtitle baseBox">
+          <span class="icon-file-text2 baseBox"></span>
+          <div>
+            <h2>Generar grupos</h2>
+            <p>Aquí puedes generar los grupos de forma definitiva.</p>
+          </div>
+        </div>
+        <div class="info">
+          <p>
+            En este apartado puedes generar los grupos de forma definitiva, por lo que hemos limitado a utilizar las acciones de este apartado solo una vez.<br><br>
+            Los grupos se generan bajo parámatros y filtros predefinidos (constantes) los cuales fueron predefinidos en la programación de este programa, si desea
+            usted usuario poder utilizar parámetros y filtros perzonalizados (variables) puede contactar a los desarrolladores para realizar y actualizar la aplicación
+            web.<br><br>
+            Los filtros utilizados como constantes son los siguientes:
+          </p>
         </div>
       </div>
-      <div class="info">
-        <p>
-          En este apartado puedes generar
-        </p>
+    </section>
+    <section class="content">
+      <div>
+        <div class="subtitle baseBox">
+          <span></span>
+          <div>
+            <h2>Más información</h2>
+            <p></p>
+          </div>
+        </div>
+        <div class="info">
+          <ul>
+            <li>- Calificación de exámen.</li>
+            <li>- Promedio de secundaria.</li>
+          </ul>
+          <p>
+            Primero aseguramos a todos los alumnos recomendados dejándolos en la mañana. Bajo los filtros anteriores se ordenan de forma ascendente y se extraen los
+            primeros 600 estudiantes para dividirlos en dos grupos, un grupo para cada turno escolar, considerando que los alumnos de fuera de Cd. Guzmán tengan mas
+            prioridad en el turno matutino y separando a los alumnos de mecánica para enviarlos directamente al turno vespertino. Después el resto de estudiantes se
+            dividen en 1 al turno matutino y 1 al turno vespertino para tener un balance de personas con buen promedio en ambos turnos.
+            Finalmente llenamos grupo por grupo dependiendo de la primera especialidad especificada, si la especialidad esta llena se guardan en una variable distinta
+            hasta que el resto que tuvo cupo en su primera especialidad esten dentro de su grupo, después metemos en su segunda especialidad todos aquellos que no tuvieron
+            cupo en la primer especialidad. Todos aquellos que no tuvieron cupo en su primera ni segunda especialidad se agregan al grupo con menos alumnos.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </div>

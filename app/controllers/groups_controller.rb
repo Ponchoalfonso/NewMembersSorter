@@ -164,4 +164,98 @@ class GroupsController < ApplicationController
 
   end#sendToSpeciality
 
+  private
+  def sendToSecondSpeciality(turno)
+
+ # => Turno Matutino <= #
+
+    if turno == "matutino"
+      @acceptedMS.each do |m|
+        case m.secondSpeciality
+        when 1
+          if @PrograMA.length < 25
+            @PrograMA.push(m)
+          elsif @PrograMB.length < 25
+            @PrograMB.push(m)
+          else
+            @error.push(m)
+          end
+        #Termina When 1
+        when 2
+          if @AdminMA.length < 25
+            @AdminMA.push(m)
+          elsif @AdminMB.length < 25
+            @AdminMB.push(m)
+          else
+            @error.push(m)
+          end
+        #Termina When 2
+        when 3
+          if @ElectroMA.length < 25
+            @ElectroMA.push(m)
+          else
+            @error.push(m)
+          end
+        #Termina When 3
+        when 4
+          if @ContaMA.length < 25
+            @ContaMA.push(m)
+          else
+            @error.push(m)
+          end
+        #Termina When 4
+
+        end#case
+      end#each
+    end#if matutino
+
+ # => Turno Vespertino <= #
+
+    if turno == "vespertino"
+      @acceptedVS.each do |m|
+        case m.speciality
+        when 1
+          if @PrograVA.length < 25
+            @PrograVA.push(m)
+          elsif @PrograVB.length < 25
+            @PrograVB.push(m)
+          else
+            @errorV.push(m)
+          end
+        #Termina When 1
+        when 2
+          if @AdminVA.length < 25
+            @AdminVA.push(m)
+          else
+            @errorV.push(m)
+          end
+        #Termina When 2
+        when 3
+          if @ElectroVA.length < 25
+            @ElectroVA.push(m)
+          else
+            @errorV.push(m)
+          end
+        #Termina When 3
+        when 4
+          if @ContaVA.length < 25
+            @ContaVA.push(m)
+          else
+            @errorV.push(m)
+          end
+        #Termina When 4
+        when 5
+          if @MecaVA.length < 25
+            @MecaVA.push(m)
+          else
+            @errorV.push(m)
+          end
+        #Termina When 4
+
+        end#case
+      end#each
+    end#if matutino
+
+  end#sendToSpeciality
+
 end
