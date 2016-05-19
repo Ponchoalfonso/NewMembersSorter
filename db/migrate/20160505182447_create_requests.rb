@@ -6,8 +6,8 @@ class CreateRequests < ActiveRecord::Migration
       t.decimal :schoolAverage
       t.boolean :isRecommended
       t.boolean :isForeign
-      t.integer :speciality
-      t.integer :secondSpeciality
+      t.string :speciality
+      t.string :secondSpeciality
 
       t.timestamps null: false
     end

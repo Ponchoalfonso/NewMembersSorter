@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 20160508213908) do
     t.decimal  "schoolAverage"
     t.boolean  "isRecommended"
     t.boolean  "isForeign"
-    t.integer  "speciality"
-    t.integer  "secondSpeciality"
+    t.string   "speciality"
+    t.string   "secondSpeciality"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
