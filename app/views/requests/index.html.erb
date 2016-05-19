@@ -1,63 +1,65 @@
 <div class="baseBox">
   <%= render 'header' %>
-  <aside class="sideBar">
-    <div class="baseBox subtitle">
-      <h2>Acciones</h2>
-    </div>
-    <div class="actions">
-      <%= form_tag import_requests_path, multipart: true do %>
-        <%= file_field_tag :file %>
-        <%= submit_tag "Importar" %>
-      <% end %>
-    </div>
-  </aside>
-  <section class="content">
-    <div>
+  <div class="secondary">
+    <aside class="sideBar">
       <div class="baseBox subtitle">
-        <div>
-          <h2>Listing Requests</h2>
-          <p>Cantidad de registros actual: <%= Request.all.length %> </p>
-          <p>Cantidad de recomendados actual: <%= Request.where(isRecommended: true).length %> </p>
-          <p>Cantidad de foraneaos actual: <%= Request.where(isForeign: true).length %> </p>
-          <%= link_to 'New Request', new_request_path %>
-        </div>
+        <h2>Acciones</h2>
       </div>
-
-      <div class="info">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Exammark</th>
-              <th>Schoolaverage</th>
-              <th>Isrecommended</th>
-              <th>Isforeign</th>
-              <th>Speciality</th>
-              <th>Secondspeciality</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @requests.each do |request| %>
-                <tr>
-                  <td><%= request.id %></td>
-                  <td><%= request.name %></td>
-                  <td><%= request.examMark %></td>
-                  <td><%= request.schoolAverage %></td>
-                  <td><%= request.isRecommended %></td>
-                  <td><%= request.isForeign %></td>
-                  <td><%= request.speciality %></td>
-                  <td><%= request.secondSpeciality %></td>
-                  <td><%= link_to 'Show', request %></td>
-                  <td><%= link_to 'Edit', edit_request_path(request) %></td>
-                  <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+      <div class="actions">
+        <%= form_tag import_requests_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag "Importar" %>
+        <% end %>
       </div>
-  </section>
+    </aside>
+    <section class="content">
+      <div>
+        <div class="baseBox subtitle">
+          <div>
+            <h2>Listing Requests</h2>
+            <p>Cantidad de registros actual: <%= Request.all.length %> </p>
+            <p>Cantidad de recomendados actual: <%= Request.where(isRecommended: true).length %> </p>
+            <p>Cantidad de foraneaos actual: <%= Request.where(isForeign: true).length %> </p>
+            <%= link_to 'New Request', new_request_path %>
+          </div>
+        </div>
+
+        <div class="info">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Exammark</th>
+                <th>Schoolaverage</th>
+                <th>Isrecommended</th>
+                <th>Isforeign</th>
+                <th>Speciality</th>
+                <th>Secondspeciality</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @requests.each do |request| %>
+                  <tr>
+                    <td><%= request.id %></td>
+                    <td><%= request.name %></td>
+                    <td><%= request.examMark %></td>
+                    <td><%= request.schoolAverage %></td>
+                    <td><%= request.isRecommended %></td>
+                    <td><%= request.isForeign %></td>
+                    <td><%= request.speciality %></td>
+                    <td><%= request.secondSpeciality %></td>
+                    <td><%= link_to 'Show', request %></td>
+                    <td><%= link_to 'Edit', edit_request_path(request) %></td>
+                    <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </section>
+  </div>
 </div>
