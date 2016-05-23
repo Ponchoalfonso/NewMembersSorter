@@ -1,65 +1,66 @@
-<div class="baseBox">
+<div>
   <%= render 'header' %>
-  <div class="secondary">
+  <div class="body">
     <aside class="sideBar">
-      <div class="baseBox subtitle">
-        <h2>Acciones</h2>
-      </div>
-      <div class="actions">
-        <%= form_tag import_requests_path, multipart: true do %>
-          <%= file_field_tag :file %>
-          <%= submit_tag "Importar" %>
-        <% end %>
+      <div class="subtitle baseBox">
+        <span class="icon-book baseBox"></span>
+        <div>
+          <h2>Acciones</h2>
+        </div>
       </div>
     </aside>
     <section class="content">
       <div>
-        <div class="baseBox subtitle">
+        <div class="subtitle baseBox">
+          <span class="icon-address-book baseBox"></span>
           <div>
-            <h2>Listing Requests</h2>
-            <p>Cantidad de registros actual: <%= Request.all.length %> </p>
-            <p>Cantidad de recomendados actual: <%= Request.where(isRecommended: true).length %> </p>
-            <p>Cantidad de foraneaos actual: <%= Request.where(isForeign: true).length %> </p>
-            <%= link_to 'New Request', new_request_path %>
+            <h2>Solicitudes actuales</h2>
+            <p>Esta es la lista de alumnos en protocolo de admisión</p>
           </div>
         </div>
-
+        <div class="info infoExtra">
+          <p>
+            Número de regisros actuales: <%= Request.all.length %><br>
+            Número de foráneos actuales: <%= Request.where(isForeign: true).length %><br>
+            Número de recomendados actuales: <%= Request.where(isRecommended: true).length %>
+          </p>
+        </div>
         <div class="info">
           <table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Exammark</th>
-                <th>Schoolaverage</th>
-                <th>Isrecommended</th>
-                <th>Isforeign</th>
-                <th>Speciality</th>
-                <th>Secondspeciality</th>
+                <th>Nombre</th>
+                <th>Promedio Secundaria</th>
+                <th>Examen de admisión</th>
+                <th>Recomendado</th>
+                <th>Foráneo</th>
+                <th>Especialidad</th>
+                <th>Especialidad Secundaria</th>
                 <th colspan="3"></th>
               </tr>
             </thead>
 
             <tbody>
               <% @requests.each do |request| %>
-                  <tr>
-                    <td><%= request.id %></td>
-                    <td><%= request.name %></td>
-                    <td><%= request.examMark %></td>
-                    <td><%= request.schoolAverage %></td>
-                    <td><%= request.isRecommended %></td>
-                    <td><%= request.isForeign %></td>
-                    <td><%= request.speciality %></td>
-                    <td><%= request.secondSpeciality %></td>
-                    <td><%= link_to 'Show', request %></td>
-                    <td><%= link_to 'Edit', edit_request_path(request) %></td>
-                    <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+                <tr>
+                  <td><%= request.id %></td>
+                  <td><%= request.name %></td>
+                  <td><%= request.schoolAverage %></td>
+                  <td><%= request.examMark %></td>
+                  <td><%= request.isRecommended %></td>
+                  <td><%= request.isForeign %></td>
+                  <td><%= request.speciality %></td>
+                  <td><%= request.secondSpeciality %></td>
+                  <td><%= link_to 'Show', request %></td>
+                  <td><%= link_to 'Edit', edit_request_path(request) %></td>
+                  <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
+      </div>
     </section>
   </div>
 </div>

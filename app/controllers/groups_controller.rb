@@ -1,5 +1,8 @@
 class GroupsController < ApplicationController
 
+  #Variables globales
+  $limitPerGroup = 55;
+
   #Actions, a partir de aqui solo las acciones del controlador
 
   def index
@@ -8,7 +11,7 @@ class GroupsController < ApplicationController
   def generate
 
     @recommended = Request.where(isRecommended: true)
-    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(300)
+    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC")
 
     #Creamos dos variables que contendran a los alumnos separados por turnos
     @acceptedM
@@ -79,32 +82,32 @@ class GroupsController < ApplicationController
       @acceptedM.each do |m|
         case m.speciality
         when 1
-          if @PrograMA.length < 25
+          if @PrograMA.length < $limitPerGroup
             @PrograMA.push(m)
-          elsif @PrograMB.length < 25
+          elsif @PrograMB.length < $limitPerGroup
             @PrograMB.push(m)
           else
             @acceptedMS.push(m)
           end
         #Termina When 1
         when 2
-          if @AdminMA.length < 25
+          if @AdminMA.length < $limitPerGroup
             @AdminMA.push(m)
-          elsif @AdminMB.length < 25
+          elsif @AdminMB.length < $limitPerGroup
             @AdminMB.push(m)
           else
             @acceptedMS.push(m)
           end
         #Termina When 2
         when 3
-          if @ElectroMA.length < 25
+          if @ElectroMA.length < $limitPerGroup
             @ElectroMA.push(m)
           else
             @acceptedMS.push(m)
           end
         #Termina When 3
         when 4
-          if @ContaMA.length < 25
+          if @ContaMA.length < $limitPerGroup
             @ContaMA.push(m)
           else
             @acceptedMS.push(m)
@@ -121,37 +124,37 @@ class GroupsController < ApplicationController
       @acceptedV.each do |m|
         case m.speciality
         when 1
-          if @PrograVA.length < 25
+          if @PrograVA.length < $limitPerGroup
             @PrograVA.push(m)
-          elsif @PrograVB.length < 25
+          elsif @PrograVB.length < $limitPerGroup
             @PrograVB.push(m)
           else
             @acceptedVS.push(m)
           end
         #Termina When 1
         when 2
-          if @AdminVA.length < 25
+          if @AdminVA.length < $limitPerGroup
             @AdminVA.push(m)
           else
             @acceptedVS.push(m)
           end
         #Termina When 2
         when 3
-          if @ElectroVA.length < 25
+          if @ElectroVA.length < $limitPerGroup
             @ElectroVA.push(m)
           else
             @acceptedVS.push(m)
           end
         #Termina When 3
         when 4
-          if @ContaVA.length < 25
+          if @ContaVA.length < $limitPerGroup
             @ContaVA.push(m)
           else
             @acceptedVS.push(m)
           end
         #Termina When 4
         when 5
-          if @MecaVA.length < 25
+          if @MecaVA.length < $limitPerGroup
             @MecaVA.push(m)
           else
             @acceptedVS.push(m)
@@ -173,32 +176,32 @@ class GroupsController < ApplicationController
       @acceptedMS.each do |m|
         case m.secondSpeciality
         when 1
-          if @PrograMA.length < 25
+          if @PrograMA.length < $limitPerGroup
             @PrograMA.push(m)
-          elsif @PrograMB.length < 25
+          elsif @PrograMB.length < $limitPerGroup
             @PrograMB.push(m)
           else
             @error.push(m)
           end
         #Termina When 1
         when 2
-          if @AdminMA.length < 25
+          if @AdminMA.length < $limitPerGroup
             @AdminMA.push(m)
-          elsif @AdminMB.length < 25
+          elsif @AdminMB.length < $limitPerGroup
             @AdminMB.push(m)
           else
             @error.push(m)
           end
         #Termina When 2
         when 3
-          if @ElectroMA.length < 25
+          if @ElectroMA.length < $limitPerGroup
             @ElectroMA.push(m)
           else
             @error.push(m)
           end
         #Termina When 3
         when 4
-          if @ContaMA.length < 25
+          if @ContaMA.length < $limitPerGroup
             @ContaMA.push(m)
           else
             @error.push(m)
@@ -215,37 +218,37 @@ class GroupsController < ApplicationController
       @acceptedVS.each do |m|
         case m.speciality
         when 1
-          if @PrograVA.length < 25
+          if @PrograVA.length < $limitPerGroup
             @PrograVA.push(m)
-          elsif @PrograVB.length < 25
+          elsif @PrograVB.length < $limitPerGroup
             @PrograVB.push(m)
           else
             @errorV.push(m)
           end
         #Termina When 1
         when 2
-          if @AdminVA.length < 25
+          if @AdminVA.length < $limitPerGroup
             @AdminVA.push(m)
           else
             @errorV.push(m)
           end
         #Termina When 2
         when 3
-          if @ElectroVA.length < 25
+          if @ElectroVA.length < $limitPerGroup
             @ElectroVA.push(m)
           else
             @errorV.push(m)
           end
         #Termina When 3
         when 4
-          if @ContaVA.length < 25
+          if @ContaVA.length < $limitPerGroup
             @ContaVA.push(m)
           else
             @errorV.push(m)
           end
         #Termina When 4
         when 5
-          if @MecaVA.length < 25
+          if @MecaVA.length < $limitPerGroup
             @MecaVA.push(m)
           else
             @errorV.push(m)

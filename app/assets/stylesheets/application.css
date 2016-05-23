@@ -131,8 +131,8 @@ header .title span{
   font-size: 1em;
 }
 
-.secondary{
-  margin-top: 7%;
+.body{
+  padding-top: 7%;
 }
 
 /*******************Predeterminado**********************
@@ -143,6 +143,11 @@ header .title span{
   margin-left: 1%;
   position: fixed;
   width: 23%;
+}
+
+.sideBar .subtitle span{
+  font-size: 1.4em;
+    margin-top: 1.5%;
 }
 
 /********************Predeterminado************************
@@ -193,8 +198,13 @@ header .title span{
 /*Contenido*/
 .info{
   margin-top: 1%;
-  margin-right: 2%;
-  margin-left: 3%;
+  margin-right: 4%;
+  margin-left: 5%;
+}
+
+.infoExtra{
+  border-bottom: solid 1px;
+  border-color: #d4d4d4;
 }
 
 .info p, ul li{

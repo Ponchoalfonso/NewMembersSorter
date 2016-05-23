@@ -24,8 +24,14 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-home:before {
+    content: "\e919";
+}
 .icon-pencil:before {
     content: "\e909";
+}
+.icon-book:before {
+    content: "\e918";
 }
 .icon-profile:before {
     content: "\e907";
@@ -33,11 +39,20 @@
 .icon-file-text2:before {
     content: "\e90c";
 }
+.icon-paste:before {
+    content: "\e91a";
+}
 .icon-stack:before {
     content: "\e90d";
 }
 .icon-folder-download:before {
     content: "\e90e";
+}
+.icon-folder-upload:before {
+    content: "\e91b";
+}
+.icon-address-book:before {
+    content: "\e91c";
 }
 .icon-clock:before {
     content: "\e908";
@@ -50,6 +65,12 @@
 }
 .icon-key:before {
     content: "\e910";
+}
+.icon-bug:before {
+    content: "\e91d";
+}
+.icon-menu:before {
+    content: "\e91e";
 }
 .icon-plus:before {
     content: "\e911";

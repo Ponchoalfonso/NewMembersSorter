@@ -1,9 +1,12 @@
-<div class="baseBox">
+<div>
   <%= render 'header' %>
-  <div class="secondary">
+  <div class="body">
     <aside class="sideBar">
       <div class="subtitle baseBox">
-        <h2>Acciones</h2>
+        <span class="icon-book baseBox"></span>
+        <div>
+          <h2>Acciones</h2>
+        </div>
       </div>
     </aside>
     <section class="content">
@@ -20,22 +23,24 @@
             En este apartado puedes generar los grupos de forma definitiva, por lo que hemos limitado a utilizar las acciones de este apartado solo una vez.<br><br>
             Los grupos se generan bajo parámatros y filtros predefinidos (constantes) los cuales fueron predefinidos en la programación de este programa, si desea
             usted usuario poder utilizar parámetros y filtros perzonalizados (variables) puede contactar a los desarrolladores para realizar y actualizar la aplicación
-            web.<br><br>
-            Los filtros utilizados como constantes son los siguientes:
-          </p>
+            web.
+            </p>
         </div>
       </div>
     </section>
     <section class="content">
       <div>
         <div class="subtitle baseBox">
-          <span></span>
+          <span class="icon-plus baseBox"></span>
           <div>
-            <h2>Más información</h2>
-            <p></p>
+            <h2>Mas información</h2>
+            <p>Para aclarar el funcionamiento del programa.</p>
           </div>
         </div>
         <div class="info">
+          <p>
+            Filtros principales:
+          </p>
           <ul>
             <li>- Calificación de exámen.</li>
             <li>- Promedio de secundaria.</li>
@@ -48,6 +53,24 @@
             Finalmente llenamos grupo por grupo dependiendo de la primera especialidad especificada, si la especialidad esta llena se guardan en una variable distinta
             hasta que el resto que tuvo cupo en su primera especialidad esten dentro de su grupo, después metemos en su segunda especialidad todos aquellos que no tuvieron
             cupo en la primer especialidad. Todos aquellos que no tuvieron cupo en su primera ni segunda especialidad se agregan al grupo con menos alumnos.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+      <div>
+        <div class="subtitle baseBox">
+          <span class="icon-bug baseBox"></span>
+          <div>
+            <h2>Bugs y errores</h2>
+            <p>¿Fallos en el programa?</p>
+          </div>
+        </div>
+        <div class="info">
+          <p>
+            Si cree que hay un error lógico dentro del programa, o el programa no da los resultados esperados, o el software simplemente no funciona y
+            devuelve un error, intente contactar a los desarrolladores del software para reportar el error e intentar resolverlo.
+            Para mas información sobre como contactar a los desarrolladores visite la sección Desarrolladores.
           </p>
         </div>
       </div>

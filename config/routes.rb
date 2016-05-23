@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
+
+  #Rutas para el controlador request
   resources :requests do
       collection {post :import}
   end
-
   resources :requests
 
+  #Rutas para el controlador groups
   get 'groups' => 'groups#index'
   get 'groups/generate' => 'groups#generate'
+
+  #Rutas para el controlador public
+  root 'public#index'
+  get 'admisiones' => 'public#admisions'
+  get 'desarrolladores' => 'public#developers'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
