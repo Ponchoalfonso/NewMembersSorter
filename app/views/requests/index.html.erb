@@ -8,6 +8,13 @@
           <h2>Acciones</h2>
         </div>
       </div>
+      <div class="actions">
+        <span class="button baseBox" id="import">
+          <span class="icon-folder-upload"></span>
+          <h3>Importar</h3>
+        </span>
+        <%= render 'importAction' %>
+      </div>
     </aside>
     <section class="content">
       <div>
@@ -15,7 +22,7 @@
           <span class="icon-address-book baseBox"></span>
           <div>
             <h2>Solicitudes actuales</h2>
-            <p>Esta es la lista de alumnos en protocolo de admisión</p>
+            <p>Esta es la lista de alumnos en protocolo de admisión.</p>
           </div>
         </div>
         <div class="info infoExtra">

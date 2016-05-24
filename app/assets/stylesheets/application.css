@@ -46,6 +46,21 @@ a:hover{
   display: flex;
 }
 
+/* Diseño predeterminado de botones */
+.button{
+  color: white;
+  padding: 4%;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 80%;
+}
+
+.button span{
+  right: 50%;
+  margin-right: 4%;
+  font-size: 1.4em;
+}
+
 /****************************
 *  Estilos predeterminados  *
 ****************************/
@@ -147,7 +162,24 @@ header .title span{
 
 .sideBar .subtitle span{
   font-size: 1.4em;
-    margin-top: 1.5%;
+  margin-top: 1.5%;
+}
+
+/* Boton de acción */
+.sideBar .button{
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: #5aa4b4;
+  margin-top: 4%;
+  margin-left: 4%
+}
+
+.sideBar .button:hover{
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: #73bac9;
 }
 
 /********************Predeterminado************************

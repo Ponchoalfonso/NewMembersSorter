@@ -15,7 +15,17 @@
 //= require turbolinks
 //= require_tree .
 
-var screenWidth = $(window).width();
+var show = false;
 
 $(document).ready(function(){
+  $('#import').click(function(){
+    if(show == false){
+      $('.hiddenAction').slideDown(100);
+      show = true;
+    }
+    else{
+      $('.hiddenAction').slideUp(100)
+      show = false;
+    }
+  });
 });

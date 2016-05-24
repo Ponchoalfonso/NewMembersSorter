@@ -1,0 +1,8 @@
+<div class="hiddenAction">
+  <div class="importAction">
+    <%= form_tag import_requests_path, multipart: true do %>
+      <%= file_field_tag :file, :clas => 'quePedo' %>
+      <%= submit_tag "Importar" %>
+    <% end %>
+  </div>
+</div>

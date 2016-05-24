@@ -7,16 +7,19 @@
     <nav>
       <ul>
         <li>
-          <%= link_to 'Inicio', requests_path %>
+          <%= link_to 'Inicio', root_path %>
         </li>
         <li>
-          <%= link_to 'Solicitudes' %>
+          <%= link_to 'Admisiones', '/admisiones' %>
         </li>
         <li>
-          <%= link_to 'Admisiones' %>
+          <%= link_to 'Solicitudes', requests_path %>
+        </li>
+        <li>
+          <%= link_to 'Crear grupos', groups_path %>
         </li>
         <li class="excluded">
-          <%= link_to 'Desarrolladores' %>
+          <%= link_to 'Desarrolladores', '/desarrolladores' %>
         </li>
       </ul>
     </nav>
