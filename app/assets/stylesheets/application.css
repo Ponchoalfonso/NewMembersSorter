@@ -180,6 +180,7 @@ header .title span{
   -o-transition: all 300ms ease;
   transition: all 300ms ease;
   background-color: #73bac9;
+  color: white;
 }
 
 /********************Predeterminado************************
@@ -248,3 +249,5 @@ header .title span{
 .info ul li{
   display: block;
 }
+
+/*  Tablas de contenido  */

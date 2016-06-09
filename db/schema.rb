@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508213908) do
+ActiveRecord::Schema.define(version: 20160605235000) do
 
   create_table "admi_mas", force: :cascade do |t|
     t.string   "name"
@@ -62,6 +62,21 @@ ActiveRecord::Schema.define(version: 20160508213908) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.decimal  "schoolAverage"
+    t.boolean  "isRecommended"
+    t.boolean  "isForeign"
+    t.string   "speciality"
+    t.string   "secondSpeciality"
+    t.string   "finalSpeciality"
+    t.string   "group"
+    t.string   "turn"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "meca_vas", force: :cascade do |t|
     t.string   "name"
     t.decimal  "examMark"
@@ -103,8 +118,8 @@ ActiveRecord::Schema.define(version: 20160508213908) do
     t.decimal  "schoolAverage"
     t.boolean  "isRecommended"
     t.boolean  "isForeign"
-    t.string   "speciality"
-    t.string   "secondSpeciality"
+    t.integer  "speciality"
+    t.integer  "secondSpeciality"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

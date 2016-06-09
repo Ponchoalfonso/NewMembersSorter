@@ -8,18 +8,51 @@
           <h2>Acciones</h2>
         </div>
       </div>
+      <div class="actions">
+        <a href="/admisiones" class="button baseBox">
+          <span class="icon-plus"></span>
+          <h3>Terminar</h3>
+        </a>
+      </div>
     </aside>
     <section class="content">
       <div>
         <div class="subtitle baseBox">
           <span class="icon baseBox"></span>
           <div>
-            <h2></h2>
-            <p></p>
+            <h2>Grupos de programación</h2>
+            <p><%= "Grupos: " @groups.length %></p>
           </div>
         </div>
         <div class="info">
-          <p></p>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Promedio Secundaria</th>
+                <th>Examen de admisión</th>
+                <th>Especialidad</th>
+                <th>Turno</th>
+                <th>Grupo</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @groups..each do |group| %>
+                <tr>
+                  <td><%= group.id %></td>
+                  <td><%= group.name %></td>
+                  <td><%= group.schoolAverage %></td>
+                  <td><%= group.examMark %></td>
+                  <td><%= group.speciality %></td>
+                  <td><%= group.turn %></td>
+                  <td><%= group.group %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

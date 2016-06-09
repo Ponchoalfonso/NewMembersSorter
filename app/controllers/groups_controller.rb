@@ -1,7 +1,8 @@
 class GroupsController < ApplicationController
 
   #Variables globales
-  $limitPerGroup = 55;
+  $limitPerGroup = 45;
+  $specCode = [1, 2 , 3, 4 , 5]
 
   #Actions, a partir de aqui solo las acciones del controlador
 
@@ -11,254 +12,159 @@ class GroupsController < ApplicationController
   def generate
 
     @recommended = Request.where(isRecommended: true)
-    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC")
-
-    #Creamos dos variables que contendran a los alumnos separados por turnos
-    @acceptedM
-    @acceptedV
-
-    #Variable para los alumnos que no alcancen lugar en la especialidad primaria
-    @acceptedMS = Array.new
-    @acceptedVS = Array.new
-
-    #Variables para cada grupo del turno Matutino
-    @PrograMA = Array.new
-    @PrograMB = Array.new
-    @AdminMA = Array.new
-    @AdminMB = Array.new
-    @ContaMA = Array.new
-    @ElectroMA = Array.new
-
-    #Variables para cada grupo del turno Vespertino
-    @PrograVA = Array.new
-    @PrograVB = Array.new
-    @AdminVA = Array.new
-    @ContaVA = Array.new
-    @ElectroVA = Array.new
-    @MecaVA = Array.new
-
-    #Dividimos a los alumnos aceptados en turnos distintos
-    splitIntoTurns(@accepted)
+    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(540)
 
 
-    #Enviamos a los alumnos a sus respectivos grupos
-    sendToSpeciality("matutino")
-    sendToSpeciality("vespertino")
+    #Separamos por especialidades
+    @progra = @accepted.where(speciality: 1, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) #4 Grupos
+    @admin = @accepted.where(speciality: 2, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) # 4 Grupos
+    @electro = @accepted.where(speciality: 3, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(90) # 2 Grupos
+    @conta = @accepted.where(speciality: 4, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupos
+    @meca = @accepted.where(speciality: 5, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupo
 
-  end #generate
+    offset = 0
 
-  # # # # # # # # # # # # # # # # # # # # # # # # #
-  # Methods, apartir de aqui solo metodos privados #
-  # # # # # # # # # # # # # # # # # # # # # # # # #
+    @groups = Array.new
+
+    @progra.each do |r|
+
+      offset++
+
+      @groups.push(Group.new({
+        :name => r.name,
+        :examMark => r.examMark,
+        :schoolAverage => r.schoolAverage,
+        :isRecommended => r.isRecommended,
+        :isForeign => r.isForeign,
+        :speciality => r.speciality,
+        :secondSpeciality => r.secondSpeciality,
+        :turn => generateTurn(r.isForeign, offset, r),
+        :finalSpeciality  => generateSpeciality(generateTurn(r.isForeign, offset, r), @groups, r, 0),
+        :group => generateSpeciality(generateTurn(r.isForeign, offset, r), @groups, r, 1)
+      }))
+    end#each
+
+  #  @groups.each do |group|
+  #    group.save()
+  #  end
+
+  end#generate
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+   # Methods, apartir de aqui solo metodos privados #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+  private
+  def generateTurn(foreign, offset, group)
+
+    turn = "null"
+
+    if offset%2 == 1 || group.speciality == 5
+      turn = "vespertino"
+    elsif foreign
+      turn = "matutino"
+    elsif offset%2 == 0
+      turn = "matutino"
+    end
+
+    return turn
+
+  end#getTurn
 
   private
-  def splitIntoTurns(accepted)
-    #Mando a los usuarios de mecanica directamente al turno vespertino\
-    @acceptedV = accepted.where(speciality: 5)
+  def generateSpeciality(turn, groups, speciality, ret)
 
-    #Manda a los usurarios recomendados
-    @acceptedM = @recommended
+    group = "null"
+    finalSpeciality ="null"
 
-    #Manda a los alumnos foraneos directamente al turno matutino
-    @acceptedM += accepted.where(isForeign: true).where.not(speciality: 5)
+    #Seleccionamos el turno de la especialidad
+    if turn == "matutino"
+      if groups.instance_of? Array
+        groups.keep_if do |g|
+          g.turn = "matutino"
+        end#each
+      end
+    else
+      if groups.instance_of? Array
+        groups.keep_if do |g|
+          g.turn = "vespertino"
+        end#each
+      end
+    end#if
 
-    #Separamos al resto en dos grupos
-    accepted = accepted.where.not(speciality: 5).where(isForeign: false)
-    for i in(1..accepted.length)
-      if i % 2 == 0
-        @acceptedM += accepted.limit(1).offset(i)
-      else
-        @acceptedV += accepted.limit(1).offset(i)
-      end#if
-    end#for
-  end #splitIntoTurns
+    #Seleccionamos la especialidad
+    if groups.instance_of? Array
+      groups.keep_if do |g|
+        g.speciality = group
+      end
+    end
 
-  private
-  def sendToSpeciality(turno)
+    #Separamos en grupos
+    group = generateGroups(groups, speciality, turn)
 
- # => Turno Matutino <= #
+    #Valores de retorno
+    if ret == 0
+      return finalSpeciality
+    elsif ret == 1
+      return group
+    end
 
-    if turno == "matutino"
-      @acceptedM.each do |m|
-        case m.speciality
-        when 1
-          if @PrograMA.length < $limitPerGroup
-            @PrograMA.push(m)
-          elsif @PrograMB.length < $limitPerGroup
-            @PrograMB.push(m)
-          else
-            @acceptedMS.push(m)
-          end
-        #Termina When 1
-        when 2
-          if @AdminMA.length < $limitPerGroup
-            @AdminMA.push(m)
-          elsif @AdminMB.length < $limitPerGroup
-            @AdminMB.push(m)
-          else
-            @acceptedMS.push(m)
-          end
-        #Termina When 2
-        when 3
-          if @ElectroMA.length < $limitPerGroup
-            @ElectroMA.push(m)
-          else
-            @acceptedMS.push(m)
-          end
-        #Termina When 3
-        when 4
-          if @ContaMA.length < $limitPerGroup
-            @ContaMA.push(m)
-          else
-            @acceptedMS.push(m)
-          end
-        #Termina When 4
-
-        end#case
-      end#each
-    end#if matutino
-
- # => Turno Vespertino <= #
-
-    if turno == "vespertino"
-      @acceptedV.each do |m|
-        case m.speciality
-        when 1
-          if @PrograVA.length < $limitPerGroup
-            @PrograVA.push(m)
-          elsif @PrograVB.length < $limitPerGroup
-            @PrograVB.push(m)
-          else
-            @acceptedVS.push(m)
-          end
-        #Termina When 1
-        when 2
-          if @AdminVA.length < $limitPerGroup
-            @AdminVA.push(m)
-          else
-            @acceptedVS.push(m)
-          end
-        #Termina When 2
-        when 3
-          if @ElectroVA.length < $limitPerGroup
-            @ElectroVA.push(m)
-          else
-            @acceptedVS.push(m)
-          end
-        #Termina When 3
-        when 4
-          if @ContaVA.length < $limitPerGroup
-            @ContaVA.push(m)
-          else
-            @acceptedVS.push(m)
-          end
-        #Termina When 4
-        when 5
-          if @MecaVA.length < $limitPerGroup
-            @MecaVA.push(m)
-          else
-            @acceptedVS.push(m)
-          end
-        #Termina When 4
-
-        end#case
-      end#each
-    end#if matutino
-
-  end#sendToSpeciality
+  end#setGroup
 
   private
-  def sendToSecondSpeciality(turno)
+  def generateGroups(groups, speciality, turn)
 
- # => Turno Matutino <= #
+    group = "null";
 
-    if turno == "matutino"
-      @acceptedMS.each do |m|
-        case m.secondSpeciality
-        when 1
-          if @PrograMA.length < $limitPerGroup
-            @PrograMA.push(m)
-          elsif @PrograMB.length < $limitPerGroup
-            @PrograMB.push(m)
-          else
-            @error.push(m)
-          end
-        #Termina When 1
-        when 2
-          if @AdminMA.length < $limitPerGroup
-            @AdminMA.push(m)
-          elsif @AdminMB.length < $limitPerGroup
-            @AdminMB.push(m)
-          else
-            @error.push(m)
-          end
-        #Termina When 2
-        when 3
-          if @ElectroMA.length < $limitPerGroup
-            @ElectroMA.push(m)
-          else
-            @error.push(m)
-          end
-        #Termina When 3
-        when 4
-          if @ContaMA.length < $limitPerGroup
-            @ContaMA.push(m)
-          else
-            @error.push(m)
-          end
-        #Termina When 4
+    #Posibles grupos del turno matutino
+    if turn == "matutino"
 
-        end#case
-      end#each
-    end#if matutino
+      case speciality
 
- # => Turno Vespertino <= #
+      when $specCode[0] #Programación
+        if groups.length <= $limitPerGroup
+          group = "A"
+        else
+          group = "B"
+        end#if
+      when $specCode[1] #Administración
+        if groups.length <= $limitPerGroup
+          group = "A"
+        else
+          group = "B"
+        end#if
+      when $specCode[2] #Electrónica
+        group = "A"
+      when $specCode[3] #Contabilidad
+        group = "A"
+      end#case
 
-    if turno == "vespertino"
-      @acceptedVS.each do |m|
-        case m.speciality
-        when 1
-          if @PrograVA.length < $limitPerGroup
-            @PrograVA.push(m)
-          elsif @PrograVB.length < $limitPerGroup
-            @PrograVB.push(m)
-          else
-            @errorV.push(m)
-          end
-        #Termina When 1
-        when 2
-          if @AdminVA.length < $limitPerGroup
-            @AdminVA.push(m)
-          else
-            @errorV.push(m)
-          end
-        #Termina When 2
-        when 3
-          if @ElectroVA.length < $limitPerGroup
-            @ElectroVA.push(m)
-          else
-            @errorV.push(m)
-          end
-        #Termina When 3
-        when 4
-          if @ContaVA.length < $limitPerGroup
-            @ContaVA.push(m)
-          else
-            @errorV.push(m)
-          end
-        #Termina When 4
-        when 5
-          if @MecaVA.length < $limitPerGroup
-            @MecaVA.push(m)
-          else
-            @errorV.push(m)
-          end
-        #Termina When 4
+    #Posibles grupos del turno vespertino
+    elsif turn == "vespertino"
 
-        end#case
-      end#each
-    end#if matutino
+      case speciality
 
-  end#sendToSpeciality
+      when $specCode[0] #Programación
+        if groups.length <= $limitPerGroup
+          group = "A"
+        else
+          group = "B"
+        end#if
+      when $specCode[1] #Administración
+        if groups.length <= $limitPerGroup
+          group = "A"
+        else
+          group = "B"
+        end#if
+      when $specCode[2] #Electrónica
+        group = "A"
+      when $specCode[4] #Contabilidad
+        group = "A"
+      end#case
+
+    end#if
+
+    return group
+
+  end#generateGroups
 
 end
