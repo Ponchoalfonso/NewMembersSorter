@@ -171,6 +171,7 @@ header .title span{
   -o-transition: all 300ms ease;
   transition: all 300ms ease;
   background-color: #5aa4b4;
+  height: 5%;
   margin-top: 4%;
   margin-left: 4%
 }
@@ -181,6 +182,17 @@ header .title span{
   transition: all 300ms ease;
   background-color: #73bac9;
   color: white;
+}
+
+.sideBar .button input{
+  background-color: rgba(90, 164, 180, 0);
+  height: 200%;
+  width: 100%;
+  text-align: left;
+  margin-top: 0px;
+  border: none;
+  font-size: 1.4em;
+  font-weight: 600;
 }
 
 /********************Predeterminado************************

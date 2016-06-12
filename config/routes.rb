@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   #Rutas para el controlador groups
   get 'groups' => 'groups#index'
+  post 'groups' => 'groups#basePost'
   get 'groups/generate' => 'groups#generate'
 
   #Rutas para el controlador public

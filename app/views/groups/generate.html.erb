@@ -21,17 +21,15 @@
           <span class="icon baseBox"></span>
           <div>
             <h2>Grupos de programación</h2>
-            <p><%= "Grupos: " @groups.length %></p>
+            <p>Alumnos: <%= Group.all.length %></p>
           </div>
         </div>
         <div class="info">
           <table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>id</th>
                 <th>Nombre</th>
-                <th>Promedio Secundaria</th>
-                <th>Examen de admisión</th>
                 <th>Especialidad</th>
                 <th>Turno</th>
                 <th>Grupo</th>
@@ -40,13 +38,11 @@
             </thead>
 
             <tbody>
-              <% @groups..each do |group| %>
+              <% @groups.each do |group| %>
                 <tr>
                   <td><%= group.id %></td>
                   <td><%= group.name %></td>
-                  <td><%= group.schoolAverage %></td>
-                  <td><%= group.examMark %></td>
-                  <td><%= group.speciality %></td>
+                  <td><%= group.finalSpeciality %></td>
                   <td><%= group.turn %></td>
                   <td><%= group.group %></td>
                 </tr>
