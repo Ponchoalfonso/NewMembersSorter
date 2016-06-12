@@ -5,33 +5,26 @@ class GroupsController < ApplicationController
   # # # # # # # # # # #
 
   $limitPerGroup = 45 #Límite de alumnos por grupo
-  $limitOfGroups = [4, 4, 2, 1, 1] #Límite de grupos de ambos turnos
 
   #Clave que identifica la especialidad
   #$specCode = ["344100002-13", "333502001-13", "351300001-13", "333400001-13" , "351500002-13"]
-  $specCode = [1, 2, 3, 4, 5]
+  $specCode = ["1", "2", "3", "4", "5"]
 
   #Definición de la clase identificada
-  $specs = ["", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mecánica automotriz"]
-
-  #$sepcs = Hash.new({
-  #  1 => "Programación",
-  #  2 => "Administración de recursos humanos",
-  #  3 => "Electrónica",
-  #  4 => "Contabilidad",
-  #  5 => "Mecánica automotriz"
-  #})
+  $specs = Hash.new
+  $specs["1"] = "Programación"
+  $specs["2"] = "Administración de recursos humanos"
+  $specs["3"] = "Electrónica"
+  $specs["4"] = "Contabilidad"
+  $specs["5"] = "Mecánica automotriz"
 
   #Número de grupos por especialidad en cada turno
-  $groupsPerTurn = [0, 2 ,2 ,1 ,1 ,1]
-
-  #$groupsPerTurn = Hash.new({
-  #  1 => 2,
-  #  2 => 2,
-  #  3 => 1,
-  #  4 => 1,
-  #  5 => 1
-  #})
+  $groupsPerTurn = Hash.new
+  $groupsPerTurn["1"] = 2
+  $groupsPerTurn["2"] = 2
+  $groupsPerTurn["3"] = 1
+  $groupsPerTurn["4"] = 1
+  $groupsPerTurn["5"] = 1
 
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   # Actions, a partir de aqui solo las acciones del controlador #
@@ -41,6 +34,7 @@ class GroupsController < ApplicationController
     @baseGroup = Group.new
   end
 
+=begin
   def basePost
     @baseGroup = Group.create({
       :name => "ini",
@@ -58,6 +52,7 @@ class GroupsController < ApplicationController
       redirect_to "/groups/generate"
     end
   end
+=end
 
 
   def generate
