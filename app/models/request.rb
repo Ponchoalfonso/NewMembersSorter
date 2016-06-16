@@ -5,7 +5,5 @@ class Request < ActiveRecord::Base
       Request.create! row.to_hash
     end
   end
-  
-
 
 end

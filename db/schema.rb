@@ -11,7 +11,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615011351) do
+ActiveRecord::Schema.define(version: 20160605235000) do
+
+  create_table "admi_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -28,34 +77,51 @@ ActiveRecord::Schema.define(version: 20160615011351) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "meca_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string   "name"
     t.decimal  "examMark"
     t.decimal  "schoolAverage"
     t.boolean  "isRecommended"
     t.boolean  "isForeign"
-    t.string   "speciality"
-    t.string   "secondSpeciality"
+    t.integer  "speciality"
+    t.integer  "secondSpeciality"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

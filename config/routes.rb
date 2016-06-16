@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for :users
   #Rutas para el controlador request
   resources :requests do
       collection {post :import}

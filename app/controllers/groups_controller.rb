@@ -32,13 +32,6 @@ class GroupsController < ApplicationController
 
   def index
     @baseGroup = Group.new
-    @requests = Request.all
-    @prueba = Request.order(:examMark)
-    respond_to do |format|
-     format.html
-     format.csv { render text: @prueba.to_csv }
-     format.xls { send_data @prueba.to_csv(col_sep: "\t") }
-   end
   end
 
 =begin
