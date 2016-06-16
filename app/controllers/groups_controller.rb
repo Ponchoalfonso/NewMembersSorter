@@ -11,20 +11,10 @@ class GroupsController < ApplicationController
   $specCode = ["1", "2", "3", "4", "5"]
 
   #Definición de la clase identificada
-  $specs = Hash.new
-  $specs["1"] = "Programación"
-  $specs["2"] = "Administración de recursos humanos"
-  $specs["3"] = "Electrónica"
-  $specs["4"] = "Contabilidad"
-  $specs["5"] = "Mecánica automotriz"
+  $specs = ["null", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mecánica automotriz"]
 
   #Número de grupos por especialidad en cada turno
-  $groupsPerTurn = Hash.new
-  $groupsPerTurn["1"] = 2
-  $groupsPerTurn["2"] = 2
-  $groupsPerTurn["3"] = 1
-  $groupsPerTurn["4"] = 1
-  $groupsPerTurn["5"] = 1
+  $groupsPerTurn = [0, 2, 2, 1, 1, 1]
 
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   # Actions, a partir de aqui solo las acciones del controlador #
@@ -33,27 +23,6 @@ class GroupsController < ApplicationController
   def index
     @baseGroup = Group.new
   end
-
-=begin
-  def basePost
-    @baseGroup = Group.create({
-      :name => "ini",
-      :examMark => 0,
-      :schoolAverage => 0,
-      :isRecommended => false,
-      :isForeign => false,
-      :speciality => 0,
-      :secondSpeciality => 0,
-      :turn => "noTurn",
-      :finalSpeciality  => "noSpeciality",
-      :group => "noGroup"
-    })
-    if @baseGroup.save
-      redirect_to "/groups/generate"
-    end
-  end
-=end
-
 
   def generate
 
@@ -96,6 +65,7 @@ class GroupsController < ApplicationController
       }))
 
     end#each
+    logger.info @groups.where(turn: "matutino").length
 
   #  @groups.each do |group|
   #    group.save()
@@ -109,6 +79,27 @@ class GroupsController < ApplicationController
 
   #Variable de apoyo en el método generateSpeciality()
   $currentTurn = ""
+
+  private
+  def findIndex(speciality)
+
+    index = 0
+    #["344100002-13", "333502001-13", "351300001-13", "333400001-13" , "351500002-13"]
+    if speciality == 1 or speciality == "344100002-13"
+      index = 1
+    elsif speciality == 2 or speciality == "333502001-13"
+      index = 2
+    elsif speciality == 3 or speciality == "351300001-13"
+      index = 3
+    elsif speciality == 4 or speciality == "333400001-13"
+      index = 4
+    elsif speciality == 5 or speciality == "351500002-13"
+      index = 5
+    end
+
+    return index
+
+  end
 
   private
   def generateTurn(foreign, offset, request)
@@ -141,42 +132,37 @@ class GroupsController < ApplicationController
   def generateSpeciality(turn, groups, request, ret)
 
     group = ""
-    finalSpeciality =""
+    finalSpeciality ="null"
 
     #Seleccionamos el turno de la especialidad
-    if turn == "matutino"
-      groups = groups.where(turn: "matutino")
-    elsif turn == "vespertino"
-      groups = groups.where(turn: "vespertino")
-    end#if
+    groups = groups.where(turn: $currentTurn)
 
     # Definimos la especialidad #
 
     #Guardamos los datos del turno entero
-    groupsBackUP = groups
+    groupsBackUp = groups
 
-    enter = true
     #Seleccinamos a todos los grupos de la especialidad primaria
-    s = request.speciality
-    groups = groups.where(finalSpeciality: $specs[s])
+    i = findIndex(request.speciality)
+
+    groups = groups.where(finalSpeciality: $specs[i])
 
     #Revisamos si la especialidad primaria esta completa
-    if groups.length < $groupsPerTurn[s] * $limitPerGroup
-      finalSpeciality = $specs[s]
-    else
-      enter = false
+    if groups.length <= $limitPerGroup * $groupsPerTurn[i]
+      finalSpeciality = $specs[i]
     end
     #Recuperamos los datos del turno entero
-    groups = groupsBackUP
+    groups = groupsBackUp
 
     #Seleccinamos a todos los grupos de la especialidad secundaria
-    s = request.secondSpeciality
-    groups = groups.where(finalSpeciality: $specs[s])
+    i = findIndex(request.secondSpeciality)
+    groups = groups.where(finalSpeciality: $specs[i])
     #Revisamos si la especialidad secundaria esta completa
-    if groups.length < $groupsPerTurn[s] * $limitPerGroup && !enter
-      finalSpeciality = $specs[s]
+    if groups.length <= $groupsPerTurn[i] * $limitPerGroup and finalSpeciality == "null"
+      finalSpeciality = $specs[i]
+    end
     #Si ambas especialidades están completas lo guardamos como Exception para posteriormente agregarlo en el grupo con menos alumnos
-    else
+    if finalSpeciality == "null"
       finalSpeciality = "Exception"
     end#if
 

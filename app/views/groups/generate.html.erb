@@ -28,7 +28,6 @@
           <table>
             <thead>
               <tr>
-                <th>id</th>
                 <th>Nombre</th>
                 <th>Especialidad</th>
                 <th>Turno</th>
@@ -40,7 +39,6 @@
             <tbody>
               <% @groups.each do |group| %>
                 <tr>
-                  <td><%= group.id %></td>
                   <td><%= group.name %></td>
                   <td><%= group.finalSpeciality %></td>
                   <td><%= group.turn %></td>
