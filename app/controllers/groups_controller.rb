@@ -22,6 +22,12 @@ class GroupsController < ApplicationController
 
   def index
     @baseGroup = Group.new
+    @Request = Request.order(:name)
+    respond_to do |format|
+     format.html
+     format.csv { render text: @Request.to_csv }
+      format.xls { send_data @Request.to_csv(col_sep: "\t") }
+   end
   end
 
   def generate
