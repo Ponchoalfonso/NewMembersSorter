@@ -21,63 +21,61 @@ class GroupsController < ApplicationController
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
   def index
-=begin
-    @Request = Request.order.(:name)
+    @baseGroup = Group.new
+    @Request = Request.order(:name)
     respond_to do |format|
      format.html
      format.csv { render text: @Request.to_csv }
       format.xls { send_data @Request.to_csv(col_sep: "\t") }
    end
-=end
   end
 
   def generate
-    if user_signed_in?
-      #Separamos a los aceptados de los demás
-      @recommended = Request.where(isRecommended: true)
-      @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(540)
+
+    #Separamos a los aceptados de los demás
+    @recommended = Request.where(isRecommended: true)
+    @accepted = Request.where(isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(540)
 
 
-      #Separamos por especialidades
-      @progra = @accepted.where(speciality: 1, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) #4 Grupos
-      @admin = @accepted.where(speciality: 2, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) # 4 Grupos
-      @electro = @accepted.where(speciality: 3, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(90) # 2 Grupos
-      @conta = @accepted.where(speciality: 4, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupos
-      @meca = @accepted.where(speciality: 5, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupo
+    #Separamos por especialidades
+    @progra = @accepted.where(speciality: 1, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) #4 Grupos
+    @admin = @accepted.where(speciality: 2, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(180) # 4 Grupos
+    @electro = @accepted.where(speciality: 3, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(90) # 2 Grupos
+    @conta = @accepted.where(speciality: 4, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupos
+    @meca = @accepted.where(speciality: 5, isRecommended: false).order("examMark DESC", "schoolAverage DESC").limit(45) # 1 Grupo
 
-      #Definimos offset
-      offset = 0
+    #Definimos offset
+    offset = 0
 
-      #Definimos @groups como un Array y así poder utilizar el método push()
-      @groups = Group.limit(0)
+    #Definimos @groups como un Array y así poder utilizar el método push()
+    @groups = Group.limit(0)
 
-      #Iteramos a todos nuestros alumnos aceptados guardando a cada uno en la variable 'r'
-      @progra.each do |r|
+    #Iteramos a todos nuestros alumnos aceptados guardando a cada uno en la variable 'r'
+    @progra.each do |r|
 
-        #Offset es el conteo de "Requests" dentro del ciclo
-        offset = offset + 1
+      #Offset es el conteo de "Requests" dentro del ciclo
+      offset = offset + 1
 
-        #Guardamos cada "Request" en un array definiendo su turno, especialidad, y grupo para posteriormente guardarlos a todos en la base de datos
-        @groups.push(Group.new({
-          :name => r.name,
-          :examMark => r.examMark,
-          :schoolAverage => r.schoolAverage,
-          :isRecommended => r.isRecommended,
-          :isForeign => r.isForeign,
-          :speciality => r.speciality,
-          :secondSpeciality => r.secondSpeciality,
-          :turn => generateTurn(r.isForeign, offset, r),
-          :finalSpeciality  => generateSpeciality($currentTurn, @groups, r, 0),
-          :group => generateSpeciality($currentTurn, @groups, r, 1)
-        }))
+      #Guardamos cada "Request" en un array definiendo su turno, especialidad, y grupo para posteriormente guardarlos a todos en la base de datos
+      @groups.push(Group.new({
+        :name => r.name,
+        :examMark => r.examMark,
+        :schoolAverage => r.schoolAverage,
+        :isRecommended => r.isRecommended,
+        :isForeign => r.isForeign,
+        :speciality => r.speciality,
+        :secondSpeciality => r.secondSpeciality,
+        :turn => generateTurn(r.isForeign, offset, r),
+        :finalSpeciality  => generateSpeciality($currentTurn, @groups, r, 0),
+        :group => generateSpeciality($currentTurn, @groups, r, 1)
+      }))
 
-      end#each
-      logger.info @groups.where(turn: "matutino").length
+    end#each
+    logger.info @groups.where(turn: "matutino").length
 
-    #  @groups.each do |group|
-    #    group.save()
-    #  end
-  end#if_session
+  #  @groups.each do |group|
+  #    group.save()
+  #  end
 
   end#generate
 

@@ -13,6 +13,55 @@
 
 ActiveRecord::Schema.define(version: 20160616024732) do
 
+  create_table "admi_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admi_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conta_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "electro_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.decimal  "examMark"
@@ -21,11 +70,46 @@ ActiveRecord::Schema.define(version: 20160616024732) do
     t.boolean  "isForeign"
     t.string   "speciality"
     t.string   "secondSpeciality"
+    t.string   "turn"
     t.string   "finalSpeciality"
     t.string   "group"
-    t.string   "turn"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "meca_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_mbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vas", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "progra_vbs", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "requests", force: :cascade do |t|
@@ -34,13 +118,14 @@ ActiveRecord::Schema.define(version: 20160616024732) do
     t.decimal  "schoolAverage"
     t.boolean  "isRecommended"
     t.boolean  "isForeign"
-    t.string   "speciality"
-    t.string   "secondSpeciality"
+    t.integer  "speciality"
+    t.integer  "secondSpeciality"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "userName",               default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

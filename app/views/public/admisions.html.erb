@@ -1,5 +1,31 @@
-<div>
-  <%= render 'header' %>
+<!-- Opciones para elegir el grupo que desea ver !-->
+<div class="groupsList">
+  <span class="button icon-cross" id="close"></span>
+  <h3>Turno matutino</h3>
+  <ul>
+    <li>Administración de recursos humanos 'A'</li>
+    <li>Administración de recursos humanos 'B'</li>
+    <li>Contabilidad 'A'</li>
+    <li>Pogramación 'A'</li>
+    <li>Pogramación 'B'</li>
+    <li>Electrónica 'A'</li>
+  </ul>
+  <h3>Turno vespertino</h3>
+  <ul>
+    <li>Administración de recursos humanos 'A'</li>
+    <li>Administración de recursos humanos 'B'</li>
+    <li>Mantenimiento automotríz 'A'</li>
+    <li>Pogramación 'A'</li>
+    <li>Pogramación 'B'</li>
+    <li>Electrónica 'A'</li>
+  </ul>
+</div>
+<div id="close">
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+  <% else %>
+    <%= render 'headerp' %>
+  <% end %>
   <div class="body">
     <aside class="sideBar">
       <div class="subtitle baseBox">
@@ -8,6 +34,12 @@
           <h2>Acciones</h2>
         </div>
       </div>
+      <div class="actions">
+        <span class="button baseBox" id="showGroups">
+          <span class="icon-profile"></span>
+          <h3>Elegir grupo</h3>
+        </span>
+      </div>
     </aside>
     <section class="content">
       <div>
@@ -15,60 +47,17 @@
           <span class="icon-paste baseBox"></span>
           <div>
             <h2>Admisiones</h2>
-            <p>Aquí puedes ver los alumnos admitidos y ver en que grupos están.</p>
+            <p>Aquí puedes encontrar todos los alumnos aceptados.</p>
           </div>
         </div>
         <div class="info">
           <p>
-            Los alumnos que hiceron protocolo para ingresar a la institución fueron admitidos bajo el funcionamiento de un programa, el cual que revisa que los
+            Los alumnos que hiceron protocolo para ingresar a la institución fueron admitidos bajo el funcionamiento de un programa, el cual revisa que los
             estudiantes que solicitaron entrar a la institución cumplan con ciertos parámetros predefinidos dentro del código del software.
           </p>
         </div>
       </div>
     </section>
-    <section class="content">
-      <div>
-        <div class="subtitle baseBox">
-          <span class="icon-profile"></span>
-          <div>
-            <h2>Programacion</h2>
-            <p>K miras prro</p>
-          </div>
-        </div>
-        <div class="info">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Promedio Secundaria</th>
-                <th>Examen de admisión</th>
-                <th>Recomendado</th>
-                <th>Foráneo</th>
-                <th>Especialidad</th>
-                <th>Especialidad Secundaria</th>
-                <th colspan="3"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @requests.each do |@admision| %>
-                <tr>
-                  <td><%= request.id %></td>
-                  <td><%= request.name %></td>
-                  <td><%= request.schoolAverage %></td>
-                  <td><%= request.examMark %></td>
-                  <td><%= request.isRecommended %></td>
-                  <td><%= request.isForeign %></td>
-                  <td><%= request.speciality %></td>
-                  <td><%= request.secondSpeciality %></td>
-                  <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+    <%= render 'admited' %>
   </div>
 </div>

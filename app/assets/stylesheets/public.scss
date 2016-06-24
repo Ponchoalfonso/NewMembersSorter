@@ -1,3 +1,59 @@
 // Place all the styles related to the public controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.groupsList{
+  right: 100%;
+  z-index: 9;
+  height: 100%;
+  background-color: white;
+  width: 30%;
+  border: solid 2px;
+  border-color: #d4d4d4;
+  border-radius: 10px;
+  position: fixed;
+}
+
+.groupsList .button{
+  position: fixed;
+  padding: 0;
+  width: auto;
+  right: 100%;
+  top: 2.5%;
+  color: #d4d4d4;
+}
+
+.groupsList h3{
+  border-bottom: 1px solid;
+  border-color: #d4d4d4;
+  padding-bottom: 4px;
+}
+
+.groupsList h3, .groupsList ul{
+  margin-left: 10%;
+  margin-right: 4%;
+  margin-top: 4%;
+  margin-bottom: 6%;
+}
+
+.groupsList ul{
+  margin-left: 0px;
+}
+
+.groupsList ul li{
+  margin-left: 0px;
+  background-color: #5aa4b4;
+  display: block;
+  color: white;
+  padding: 2%;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 80%;
+}
+
+.groupsList ul li:hover{
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: #73bac9;
+}

@@ -26,6 +26,10 @@
   </div>
   <div class="logIn baseBox">
     <span class="icon-user baseBox"></span>
-    <%=link_to 'Iniciar sesión' %>
+    <% if user_signed_in? %>
+      <%= link_to current_user.email, destroy_user_session_path, method: :delete  %>
+    <% else %>
+      <%= link_to 'Iniciar sesión', '/users/sign_in' %>
+    <% end %>
   </div>
 </header>

@@ -1,5 +1,9 @@
 <div>
-  <%= render 'header' %>
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+  <% else %>
+    <%= render 'headerp' %>
+  <% end %>
   <div class="body">
     <aside class="sideBar">
       <div class="subtitle baseBox">

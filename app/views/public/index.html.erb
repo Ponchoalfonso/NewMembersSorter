@@ -1,5 +1,9 @@
 <div>
-  <%= render 'header' %>
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+  <% else %>
+    <%= render 'headerp' %>
+  <% end %>
   <div class="body">
     <aside class="sideBar">
       <div class="subtitle baseBox">
@@ -25,7 +29,7 @@
           </div>
         </div>
         <div class="info">
-          <p>La neta no se me ocurre que chingados poner :/</p>
+          <p>Hola</p>
         </div>
       </div>
     </section>

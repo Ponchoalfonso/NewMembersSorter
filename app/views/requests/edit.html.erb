@@ -1,6 +1,10 @@
-<h1>Editing Request</h1>
+<% if user_signed_in? %>
+  <h1>Editing Request</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @request %> |
-<%= link_to 'Back', requests_path %>
+  <%= link_to 'Show', @request %> |
+  <%= link_to 'Back', requests_path %>
+<% else %>
+  <%= render 'noSesion'%>
+<% end %>

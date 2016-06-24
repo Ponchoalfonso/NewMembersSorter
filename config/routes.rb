@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  #Rutas para el controlador request
+
+  #Rutas de exportación de Requests
   resources :requests do
       collection {post :import}
   end
-  resources :requests
 
+  #Rutas para el controlador Requests
+  resources :requests
+  
   #Rutas para el controlador groups
   get 'groups' => 'groups#index'
   post 'groups' => 'groups#basePost'
@@ -16,6 +19,12 @@ Rails.application.routes.draw do
   root 'public#index'
   get 'admisiones' => 'public#admisions'
   get 'desarrolladores' => 'public#developers'
+
+  #Error 505(Internal server error) y Error 404(Page not found)
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

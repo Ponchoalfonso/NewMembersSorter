@@ -1,88 +1,91 @@
 <div>
-  <%= render 'header' %>
-  <div class="body">
-    <aside class="sideBar">
-      <div class="subtitle baseBox">
-        <span class="icon-book baseBox"></span>
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+    <div class="body">
+      <aside class="sideBar">
+        <div class="subtitle baseBox">
+          <span class="icon-book baseBox"></span>
+          <div>
+            <h2>Acciones</h2>
+          </div>
+        </div>
+        <div class="actions">
+          <% if Group.all.length > 0 %>
+            <a href="/admisiones" class="button baseBox">
+              <span class="icon-folder-download"></span>
+              <h3>Exportar grupos</h3>
+            </a>
+          <% end %>
+        </div>
+      </aside>
+      <section class="content">
         <div>
-          <h2>Acciones</h2>
-        </div>
-      </div>
-      <div class="actions">
-        <!--
-        <%= form_for(@baseGroup) do |f| %>
-        <div class="baseBox button">
-            <%= f.submit "Generar grupos"%>
-        </div>
-        <% end %>
-        !-->
-      </div>
-    </aside>
-    <section class="content">
-      <div>
-        <div class="subtitle baseBox">
-          <span class="icon-file-text2 baseBox"></span>
-          <div>
-            <h2>Generar grupos</h2>
-            <p>Aquí puedes generar los grupos de forma definitiva.</p>
+          <div class="subtitle baseBox">
+            <span class="icon-file-text2 baseBox"></span>
+            <div>
+              <h2>Generar grupos</h2>
+              <p>Aquí puedes generar los grupos de forma definitiva.</p>
+            </div>
+          </div>
+          <div class="info">
+            <p>
+              En este apartado puedes generar los grupos de forma definitiva, por lo que hemos limitado a utilizar las acciones de este apartado solo una vez.<br><br>
+              Los grupos se generan bajo parámatros y filtros predefinidos (constantes) los cuales fueron predefinidos en la programación de este programa, si desea
+              usted usuario poder utilizar parámetros y filtros perzonalizados (variables) puede contactar a los desarrolladores para realizar y actualizar la aplicación
+              web.
+              </p>
           </div>
         </div>
-        <div class="info">
-          <p>
-            En este apartado puedes generar los grupos de forma definitiva, por lo que hemos limitado a utilizar las acciones de este apartado solo una vez.<br><br>
-            Los grupos se generan bajo parámatros y filtros predefinidos (constantes) los cuales fueron predefinidos en la programación de este programa, si desea
-            usted usuario poder utilizar parámetros y filtros perzonalizados (variables) puede contactar a los desarrolladores para realizar y actualizar la aplicación
-            web.
+      </section>
+      <section class="content">
+        <div>
+          <div class="subtitle baseBox">
+            <span class="icon-plus baseBox"></span>
+            <div>
+              <h2>Mas información</h2>
+              <p>Para aclarar el funcionamiento del programa.</p>
+            </div>
+          </div>
+          <div class="info">
+            <p>
+              Filtros principales:
             </p>
-        </div>
-      </div>
-    </section>
-    <section class="content">
-      <div>
-        <div class="subtitle baseBox">
-          <span class="icon-plus baseBox"></span>
-          <div>
-            <h2>Mas información</h2>
-            <p>Para aclarar el funcionamiento del programa.</p>
+            <ul>
+              <li>- Calificación de exámen.</li>
+              <li>- Promedio de secundaria.</li>
+            </ul>
+            <p>
+              Primero aseguramos a todos los alumnos recomendados dejándolos en la mañana. Bajo los filtros anteriores se ordenan de forma ascendente y se extraen los
+              primeros 600 estudiantes para dividirlos en dos grupos, un grupo para cada turno escolar, considerando que los alumnos de fuera de Cd. Guzmán tengan mas
+              prioridad en el turno matutino y separando a los alumnos de mecánica para enviarlos directamente al turno vespertino. Después el resto de estudiantes se
+              dividen en 1 al turno matutino y 1 al turno vespertino para tener un balance de personas con buen promedio en ambos turnos.
+              Finalmente llenamos grupo por grupo dependiendo de la primera especialidad especificada, si la especialidad esta llena se guardan en una variable distinta
+              hasta que el resto que tuvo cupo en su primera especialidad esten dentro de su grupo, después metemos en su segunda especialidad todos aquellos que no tuvieron
+              cupo en la primer especialidad. Todos aquellos que no tuvieron cupo en su primera ni segunda especialidad se agregan al grupo con menos alumnos.
+            </p>
           </div>
         </div>
-        <div class="info">
-          <p>
-            Filtros principales:
-          </p>
-          <ul>
-            <li>- Calificación de exámen.</li>
-            <li>- Promedio de secundaria.</li>
-          </ul>
-          <p>
-            Primero aseguramos a todos los alumnos recomendados dejándolos en la mañana. Bajo los filtros anteriores se ordenan de forma ascendente y se extraen los
-            primeros 600 estudiantes para dividirlos en dos grupos, un grupo para cada turno escolar, considerando que los alumnos de fuera de Cd. Guzmán tengan mas
-            prioridad en el turno matutino y separando a los alumnos de mecánica para enviarlos directamente al turno vespertino. Después el resto de estudiantes se
-            dividen en 1 al turno matutino y 1 al turno vespertino para tener un balance de personas con buen promedio en ambos turnos.
-            Finalmente llenamos grupo por grupo dependiendo de la primera especialidad especificada, si la especialidad esta llena se guardan en una variable distinta
-            hasta que el resto que tuvo cupo en su primera especialidad esten dentro de su grupo, después metemos en su segunda especialidad todos aquellos que no tuvieron
-            cupo en la primer especialidad. Todos aquellos que no tuvieron cupo en su primera ni segunda especialidad se agregan al grupo con menos alumnos.
-          </p>
-        </div>
-      </div>
-    </section>
-    <section class="content">
-      <div>
-        <div class="subtitle baseBox">
-          <span class="icon-bug baseBox"></span>
-          <div>
-            <h2>Bugs y errores</h2>
-            <p>¿Fallos en el programa?</p>
+      </section>
+      <section class="content">
+        <div>
+          <div class="subtitle baseBox">
+            <span class="icon-bug baseBox"></span>
+            <div>
+              <h2>Bugs y errores</h2>
+              <p>¿Fallos en el programa?</p>
+            </div>
+          </div>
+          <div class="info">
+            <p>
+              Si cree que hay un error lógico dentro del programa, o el programa no da los resultados esperados, o el software simplemente no funciona y
+              devuelve un error, intente contactar a los desarrolladores del software para reportar el error e intentar resolverlo.
+              Para mas información sobre como contactar a los desarrolladores visite la sección Desarrolladores.
+            </p>
           </div>
         </div>
-        <div class="info">
-          <p>
-            Si cree que hay un error lógico dentro del programa, o el programa no da los resultados esperados, o el software simplemente no funciona y
-            devuelve un error, intente contactar a los desarrolladores del software para reportar el error e intentar resolverlo.
-            Para mas información sobre como contactar a los desarrolladores visite la sección Desarrolladores.
-          </p>
-        </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  <% else %>
+    <%= render 'noSesion' %>
+  <% end %>
 </div>
