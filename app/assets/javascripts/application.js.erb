@@ -14,3 +14,92 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).on('page:load', function(){
+
+  $("#M1").click(function(){selectGroup("M1");});
+  $("#M2").click(function(){selectGroup("M2");});
+  $("#M3").click(function(){selectGroup("M3");});
+  $("#M4").click(function(){selectGroup("M4");});
+  $("#M5").click(function(){selectGroup("M5");});
+  $("#M6").click(function(){selectGroup("M6");});
+  $("#V1").click(function(){selectGroup("V1");});
+  $("#V2").click(function(){selectGroup("V2");});
+  $("#V3").click(function(){selectGroup("V3");});
+  $("#V4").click(function(){selectGroup("V4");});
+  $("#V5").click(function(){selectGroup("V5");});
+  $("#V6").click(function(){selectGroup("V6");});
+
+  console.log("holis");
+
+});
+
+function selectGroup(id){
+
+  $('.admited').slideUp(300)
+
+  window.setTimeout(function(){
+
+    switch (id) {
+
+      /* Turno Matutino */
+
+      case "M1":
+        $('#specialityName').text("Administración 'A' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Administración de recursos humanos", group: "A") %>
+        break;
+      case "M2":
+        $('#specialityName').text("Administración 'B' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Administración de recursos humanos", group: "B") %>
+        break;
+      case "M3":
+        $('#specialityName').text("Contabilidad 'A' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Contabilidad", group: "A") %>
+        break;
+      case "M4":
+        $('#specialityName').text("Programación 'A' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "A") %>
+        break;
+      case "M5":
+        $('#specialityName').text("Programación 'B' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "B") %>
+        break;
+      case "M6":
+        $('#specialityName').text("Electrónica 'A' Matutino");
+        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "B") %>
+        break;
+
+      /*Turno vespertino*/
+
+      case "V1":
+        $('#specialityName').text("Administración 'A' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Administración de recursos humanos", group: "A") %>
+        break;
+      case "V2":
+        $('#specialityName').text("Administración 'B' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Administración de recursos humanos", group: "B") %>
+        break;
+      case "V3":
+        $('#specialityName').text("Mantenimiento automotríz 'A' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Mantenimiento automotríz", group: "A") %>
+        break;
+      case "V4":
+        $('#specialityName').text("Programación 'A' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "A") %>
+        break;
+      case "V5":
+        $('#specialityName').text("Programación 'B' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "B") %>
+        break;
+      case "V6":
+        $('#specialityName').text("Electrónica 'A' Vespertino");
+        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "B") %>
+        break;
+
+    }
+  }, 300);
+  $('.admited').slideDown(300);
+  $('.groupsList').animate({'right': '100%'});
+  $('.groupsList .button').animate({'right': '100%'});
+
+}

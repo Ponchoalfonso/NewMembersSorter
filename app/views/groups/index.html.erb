@@ -1,3 +1,4 @@
+<%= render 'groupSerch' %>
 <div>
   <% if user_signed_in? %>
     <%= render 'header' %>
@@ -11,13 +12,23 @@
         </div>
         <div class="actions">
           <% if Group.all.length > 0 %>
-            <a href="/admisiones" class="button baseBox">
+            <a href="/groups.xls" class="button baseBox">
               <span class="icon-folder-download"></span>
               <h3>Exportar grupos</h3>
+            </a>
+            <span class="button baseBox" id="showGroups">
+              <span class="icon-profile"></span>
+              <h3>Revisar grupos</h3>
+            </span>
+          <% else %>
+            <a href="/groups/generate" class="button baseBox">
+              <span class="icon-checkmark"></span>
+              <h3>Generar grupos</h3>
             </a>
           <% end %>
         </div>
       </aside>
+      <% if Group.all.length < 1 %>
       <section class="content">
         <div>
           <div class="subtitle baseBox">
@@ -37,35 +48,7 @@
           </div>
         </div>
       </section>
-      <section class="content">
-        <div>
-          <div class="subtitle baseBox">
-            <span class="icon-plus baseBox"></span>
-            <div>
-              <h2>Mas información</h2>
-              <p>Para aclarar el funcionamiento del programa.</p>
-            </div>
-          </div>
-          <div class="info">
-            <p>
-              Filtros principales:
-            </p>
-            <ul>
-              <li>- Calificación de exámen.</li>
-              <li>- Promedio de secundaria.</li>
-            </ul>
-            <p>
-              Primero aseguramos a todos los alumnos recomendados dejándolos en la mañana. Bajo los filtros anteriores se ordenan de forma ascendente y se extraen los
-              primeros 600 estudiantes para dividirlos en dos grupos, un grupo para cada turno escolar, considerando que los alumnos de fuera de Cd. Guzmán tengan mas
-              prioridad en el turno matutino y separando a los alumnos de mecánica para enviarlos directamente al turno vespertino. Después el resto de estudiantes se
-              dividen en 1 al turno matutino y 1 al turno vespertino para tener un balance de personas con buen promedio en ambos turnos.
-              Finalmente llenamos grupo por grupo dependiendo de la primera especialidad especificada, si la especialidad esta llena se guardan en una variable distinta
-              hasta que el resto que tuvo cupo en su primera especialidad esten dentro de su grupo, después metemos en su segunda especialidad todos aquellos que no tuvieron
-              cupo en la primer especialidad. Todos aquellos que no tuvieron cupo en su primera ni segunda especialidad se agregan al grupo con menos alumnos.
-            </p>
-          </div>
-        </div>
-      </section>
+      <% else %>
       <section class="content">
         <div>
           <div class="subtitle baseBox">
@@ -84,6 +67,8 @@
           </div>
         </div>
       </section>
+      <%= render 'admited' %>
+      <% end %>
     </div>
   <% else %>
     <%= render 'noSesion' %>

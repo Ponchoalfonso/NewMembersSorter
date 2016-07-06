@@ -7,11 +7,10 @@ class GroupsController < ApplicationController
   $limitPerGroup = 45 #Límite de alumnos por grupo
 
   #Clave que identifica la especialidad
-  #$specCode = ["344100002-13", "333502001-13", "351300001-13", "333400001-13" , "351500002-13"]
-  $specCode = ["1", "2", "3", "4", "5"]
+  $specCode = [0, 1, 2, 3, 4, 5]
 
   #Definición de la clase identificada
-  $specs = ["null", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mecánica automotriz"]
+  $specs = ["null", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mantenimiento automotriz"]
 
   #Número de grupos por especialidad en cada turno
   $groupsPerTurn = [0, 2, 2, 1, 1, 1]
@@ -21,6 +20,7 @@ class GroupsController < ApplicationController
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
   def index
+    @admisions = Group.all
 =begin
     @Request = Request.order.(:name)
     respond_to do |format|
@@ -67,12 +67,12 @@ class GroupsController < ApplicationController
           :speciality => r.speciality,
           :secondSpeciality => r.secondSpeciality,
           :turn => generateTurn(r.isForeign, offset, r),
-          :finalSpeciality  => generateSpeciality($currentTurn, @groups, r, 0),
-          :group => generateSpeciality($currentTurn, @groups, r, 1)
+          :finalSpeciality  => generateSpeciality(@groups, $currentTurn, r),
+          :group => generateGroups(@groups, $currentTurn, $currentSpeciality)
         }))
 
       end#each
-      logger.info @groups.where(turn: "matutino").length
+      logger.info selectWhere(@groups, "turn", "vespertino").length
 
     #  @groups.each do |group|
     #    group.save()
@@ -85,29 +85,53 @@ class GroupsController < ApplicationController
    # Methods, apartir de aqui solo metodos privados #
     # # # # # # # # # # # # # # # # # # # # # # # #
 
-  #Variable de apoyo en el método generateSpeciality()
+  #Variables de apoyo en el método generateSpeciality() y generateSpeciality()
   $currentTurn = ""
+  $currentSpeciality = ""
 
+  # Métodos de apoyo #
   private
   def findIndex(speciality)
 
     index = 0
     #["344100002-13", "333502001-13", "351300001-13", "333400001-13" , "351500002-13"]
-    if speciality == 1 or speciality == "344100002-13"
+    if speciality == 1 or speciality == "344100002-13" or speciality == $specs[1]
       index = 1
-    elsif speciality == 2 or speciality == "333502001-13"
+    elsif speciality == 2 or speciality == "333502001-13" or speciality == $specs[2]
       index = 2
-    elsif speciality == 3 or speciality == "351300001-13"
+    elsif speciality == 3 or speciality == "351300001-13" or speciality == $specs[3]
       index = 3
-    elsif speciality == 4 or speciality == "333400001-13"
+    elsif speciality == 4 or speciality == "333400001-13" or speciality == $specs[4]
       index = 4
-    elsif speciality == 5 or speciality == "351500002-13"
+    elsif speciality == 5 or speciality == "351500002-13" or speciality == $specs[5]
       index = 5
     end
 
     return index
 
-  end
+  end#findIndex
+
+  private
+  def selectWhere(model, row, compare)
+    slected = Array.new
+    if row == "turn"
+      model.each do |m|
+        if m.turn == compare
+          slected.push(m)
+        end
+      end#each
+    end#rowIfCondition
+    if row == "finalSpeciality"
+      model.each do |m|
+        if m.finalSpeciality == compare
+          slected.push(m)
+        end
+      end#each
+    end#rowIfCondition
+
+    return slected
+
+  end#selectWhere
 
   private
   def generateTurn(foreign, offset, request)
@@ -137,13 +161,13 @@ class GroupsController < ApplicationController
   end#generateTurn
 
   private
-  def generateSpeciality(turn, groups, request, ret)
+  def generateSpeciality(groups, turn, request)
 
-    group = ""
     finalSpeciality ="null"
 
     #Seleccionamos el turno de la especialidad
-    groups = groups.where(turn: $currentTurn)
+    #groups = groups.where(turn: $currentTurn) TODO Borrar esta linea
+    groups = selectWhere(groups, "turn", turn)
 
     # Definimos la especialidad #
 
@@ -153,7 +177,8 @@ class GroupsController < ApplicationController
     #Seleccinamos a todos los grupos de la especialidad primaria
     i = findIndex(request.speciality)
 
-    groups = groups.where(finalSpeciality: $specs[i])
+    #groups = groups.where(finalSpeciality: $specs[i]) TODO Borrar esta linea
+    groups = selectWhere(groups, "finalSpeciality", $specs[i])
 
     #Revisamos si la especialidad primaria esta completa
     if groups.length <= $limitPerGroup * $groupsPerTurn[i]
@@ -164,7 +189,8 @@ class GroupsController < ApplicationController
 
     #Seleccinamos a todos los grupos de la especialidad secundaria
     i = findIndex(request.secondSpeciality)
-    groups = groups.where(finalSpeciality: $specs[i])
+    #groups = groups.where(finalSpeciality: $specs[i]) TODO Borrar esta linea
+    groups = selectWhere(groups, "finalSpeciality", $specs[i])
     #Revisamos si la especialidad secundaria esta completa
     if groups.length <= $groupsPerTurn[i] * $limitPerGroup and finalSpeciality == "null"
       finalSpeciality = $specs[i]
@@ -172,72 +198,42 @@ class GroupsController < ApplicationController
     #Si ambas especialidades están completas lo guardamos como Exception para posteriormente agregarlo en el grupo con menos alumnos
     if finalSpeciality == "null"
       finalSpeciality = "Exception"
+      i = 0;
     end#if
 
-    #Separamos en grupos
-    group = generateGroups(groups, request.speciality, turn)
-
     #Valores de retorno
-    if ret == 0
-      return finalSpeciality
-    elsif ret == 1
-      return group
-    end
+    $currentSpeciality = finalSpeciality
+    return finalSpeciality
 
   end#setGroup
 
   private
-  def generateGroups(groups, speciality, turn)
+  def generateGroups(groups, turn, finalSpeciality)
 
     group = "null"
 
-    #Posibles grupos del turno matutino
-    if turn == "matutino"
+    #Descartamos a los alumnos que no logran entrar ni en su primer ni sugunda especialidad
+    if finalSpeciality == "Exception"
+      group = "E"
+    end
 
-      case speciality
+    #Generamos un indice
+    i = findIndex($currentSpeciality)
 
-      when $specCode[0] #Programación
-        if groups.length < $limitPerGroup
-          group = "A"
-        elsif groups.length >= $limitPerGroup
-          group = "B"
-        end#if
-      when $specCode[1] #Administración
-        if groups.length < $limitPerGroup
-          group = "A"
-        elsif groups.length >= $limitPerGroup
-          group = "B"
-        end#if
-      when $specCode[2] #Electrónica
-        group = "A"
-      when $specCode[3] #Contabilidad
-        group = "A"
-      end#case
+    #Seleccinamos los alumnos del turno dado
+    groups = selectWhere(groups, "turn", turn)
+    #Seleccionamos los alumnos de la especialidad definida
+    groups = selectWhere(groups, "finalSpeciality", $specs[i])
+    logger.info "#{groups.length} del turno #{turn}" #TODO copy this line
 
-    #Posibles grupos del turno vespertino
-    elsif turn == "vespertino"
-
-      case speciality
-
-      when $specCode[0] #Programación
-        if groups.length < $limitPerGroup
-          group = "A"
-        elsif groups.length >= $limitPerGroup
-          group = "B"
-        end#if
-      when $specCode[1] #Administración
-        if groups.length < $limitPerGroup
-          group = "A"
-        elsif groups.length >= $limitPerGroup
-          group = "B"
-        end#if
-      when $specCode[2] #Electrónica
-        group = "A"
-      when $specCode[4] #Contabilidad
-        group = "A"
-      end#case
-
-    end#if
+    # Comparaciones #
+    if groups.length <= $limitPerGroup and groups.length > 0
+      group = "A"
+    elsif groups.length > $limitPerGroup and groups.length
+      group = "B"
+    else
+      group = "EE" #Si alguien ve EE como grupo en algun error, hay un problema en pasadas lineas de código
+    end
 
     return group
 

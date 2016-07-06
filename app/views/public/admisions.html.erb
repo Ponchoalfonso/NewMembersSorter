@@ -1,26 +1,6 @@
 <!-- Opciones para elegir el grupo que desea ver !-->
-<div class="groupsList">
-  <span class="button icon-cross" id="close"></span>
-  <h3>Turno matutino</h3>
-  <ul>
-    <li>Administración de recursos humanos 'A'</li>
-    <li>Administración de recursos humanos 'B'</li>
-    <li>Contabilidad 'A'</li>
-    <li>Pogramación 'A'</li>
-    <li>Pogramación 'B'</li>
-    <li>Electrónica 'A'</li>
-  </ul>
-  <h3>Turno vespertino</h3>
-  <ul>
-    <li>Administración de recursos humanos 'A'</li>
-    <li>Administración de recursos humanos 'B'</li>
-    <li>Mantenimiento automotríz 'A'</li>
-    <li>Pogramación 'A'</li>
-    <li>Pogramación 'B'</li>
-    <li>Electrónica 'A'</li>
-  </ul>
-</div>
-<div id="close">
+<%= render 'groupSerch' %>
+<div>
   <% if user_signed_in? %>
     <%= render 'header' %>
   <% else %>
