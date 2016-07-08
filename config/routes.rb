@@ -9,11 +9,12 @@ Rails.application.routes.draw do
 
   #Rutas para el controlador Requests
   resources :requests
-  
+
   #Rutas para el controlador groups
-  get 'groups' => 'groups#index'
-  post 'groups' => 'groups#basePost'
-  get 'groups/generate' => 'groups#generate'
+  resources :groups
+  get 'search' => 'groups#search'
+  get 'generate' => 'groups#generate'
+  get 'deleteData' => 'groups#deleteData'
 
   #Rutas para el controlador public
   root 'public#index'

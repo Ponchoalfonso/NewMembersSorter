@@ -11,7 +11,7 @@ config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = true #Error 505, 404
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.

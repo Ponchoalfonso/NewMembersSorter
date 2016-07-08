@@ -1,0 +1,59 @@
+<div>
+  <% if user_signed_in? %>
+    <% if Group.all.length > 0 %>
+      <%= render 'header' %>
+      <div class="body">
+        <aside class="sideBar">
+          <div class="subtitle baseBox">
+            <span class="icon-book baseBox"></span>
+            <div>
+              <h2>Acciones</h2>
+            </div>
+          </div>
+        </aside>
+        <section class="content">
+          <div>
+            <div class="subtitle baseBox">
+              <span class="icon-bin2 baseBox"></span>
+              <div>
+                <h2>Alumnos eliminados</h2>
+                <p></p>
+              </div>
+            </div>
+            <div class="info">
+              <p>Las bases de datos han sido eliminadas para volver a usarse de nuevo.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    <% else %>
+    <%= render 'header' %>
+    <div class="body">
+      <aside class="sideBar">
+        <div class="subtitle baseBox">
+          <span class="icon-book baseBox"></span>
+          <div>
+            <h2>Acciones</h2>
+          </div>
+        </div>
+      </aside>
+      <section class="content">
+        <div>
+          <div class="subtitle baseBox">
+            <span class="icon-neutral baseBox"></span>
+            <div>
+              <h2>¿Qué haces aquí?</h2>
+              <p>Vuelve por donde viniste</p>
+            </div>
+          </div>
+          <div class="info">
+            <p>Por favor, utiliza la aplicación como tal, no te muevas por URLs que aún no están disponibles.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <% end %>
+  <% else %>
+    <% render 'noSesion' %>
+  <% end %>
+</div>

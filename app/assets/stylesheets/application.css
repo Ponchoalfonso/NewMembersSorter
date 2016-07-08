@@ -61,6 +61,42 @@ a:hover{
   font-size: 1.4em;
 }
 
+.find{
+  font-size: 1em;
+  color: white;
+  width: 80%;
+  padding: 4%;
+  background-color: #5aa4b4;
+  border-radius: 4px;
+  margin-top: 4%;
+  margin-left: 4%
+}
+
+.find input{
+  background-color: #407682;
+  border: none;
+  width: 99%;
+}
+
+.find .submitBtn{
+  font-size: 1.4em;
+  background-color: #4d93a2;
+  margin-left: 32%;
+  margin-top: 5%;
+  border-radius: 4px;
+  border: solid #488e9d;
+  width: 35%;
+}
+
+.find .submitBtn:hover{
+  font-size: 1.4em;
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: #5aa4b4;
+  color: white;
+}
+
 /****************************
 *  Estilos predeterminados  *
 ****************************/
@@ -193,6 +229,14 @@ header .title span{
   border: none;
   font-size: 1.4em;
   font-weight: 600;
+}
+
+.sideBar .danger{
+  background-color: rgb(219, 42, 42);
+}
+
+.sideBar .danger:hover{
+  background-color: rgb(255, 62, 62);
 }
 
 /********************Predeterminado************************

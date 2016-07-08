@@ -4,7 +4,11 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    if params[:search]
+      @requests = Request.where('name LIKE ?', "%#{params[:search]}%")
+    else
+      @requests = Request.all
+    end
   end
 
   # GET /requests/1

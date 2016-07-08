@@ -20,8 +20,20 @@
               <span class="icon-profile"></span>
               <h3>Revisar grupos</h3>
             </span>
+            <span class="baseBox find">
+            <%= form_tag '/search', :method => 'get' do %>
+              <p>
+                <%= text_field_tag :search, params[:search] %>
+                <%= submit_tag "Buscar", :name => nil, :class => "submitBtn" %>
+              </p>
+            <% end %>
+            </span>
+            <a href="/deleteData" class="button baseBox danger">
+              <span class="icon-bin2"></span>
+              <h3>Vaciar bases de datos</h3>
+            </a>
           <% else %>
-            <a href="/groups/generate" class="button baseBox">
+            <a href='/generate' class="button baseBox">
               <span class="icon-checkmark"></span>
               <h3>Generar grupos</h3>
             </a>

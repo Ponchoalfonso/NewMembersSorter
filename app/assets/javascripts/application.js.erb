@@ -29,76 +29,73 @@ $(document).on('page:load', function(){
   $("#V4").click(function(){selectGroup("V4");});
   $("#V5").click(function(){selectGroup("V5");});
   $("#V6").click(function(){selectGroup("V6");});
-
-  console.log("holis");
+  $("#E").click(function(){selectGroup("E");});
 
 });
 
 function selectGroup(id){
 
-  $('.admited').slideUp(300)
+  $('.admited').slideUp(300);
 
-  window.setTimeout(function(){
+  setTimeout(function(){
 
     switch (id) {
 
       /* Turno Matutino */
 
       case "M1":
-        $('#specialityName').text("Administración 'A' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Administración de recursos humanos", group: "A") %>
+        $('.4').slideDown(300);
         break;
       case "M2":
-        $('#specialityName').text("Administración 'B' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Administración de recursos humanos", group: "B") %>
+        $('.5').slideDown(300);
         break;
       case "M3":
-        $('#specialityName').text("Contabilidad 'A' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Contabilidad", group: "A") %>
+        $('.8').slideDown(300);
         break;
       case "M4":
-        $('#specialityName').text("Programación 'A' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "A") %>
+        $('.2').slideDown(300);
         break;
       case "M5":
-        $('#specialityName').text("Programación 'B' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "B") %>
+        $('.3').slideDown(300);
         break;
       case "M6":
-        $('#specialityName').text("Electrónica 'A' Matutino");
-        <% @admisions = Group.where(turn: "matutino", finalSpeciality: "Pogramación", group: "B") %>
+        $('.6').slideDown(300);
         break;
 
       /*Turno vespertino*/
 
       case "V1":
-        $('#specialityName').text("Administración 'A' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Administración de recursos humanos", group: "A") %>
+        chart = ".16";
+        $(chart).slideDown(300);
         break;
       case "V2":
-        $('#specialityName').text("Administración 'B' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Administración de recursos humanos", group: "B") %>
+        chart = ".17";
+        $(chart).slideDown(300);
         break;
       case "V3":
-        $('#specialityName').text("Mantenimiento automotríz 'A' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Mantenimiento automotríz", group: "A") %>
+        chart = ".22";
+        $(chart).slideDown(300);
         break;
       case "V4":
-        $('#specialityName').text("Programación 'A' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "A") %>
+        chart = ".14";
+        $(chart).slideDown(300);
         break;
       case "V5":
-        $('#specialityName').text("Programación 'B' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "B") %>
+        chart = ".15";
+        $(chart).slideDown(300);
         break;
       case "V6":
-        $('#specialityName').text("Electrónica 'A' Vespertino");
-        <% @admisions = Group.where(turn: "vespertino", finalSpeciality: "Pogramación", group: "B") %>
+        chart = ".18";
+        $(chart).slideDown(300);
         break;
+
+      case "E":
+        $('.error').slideDown(300);
 
     }
   }, 300);
-  $('.admited').slideDown(300);
+
+
   $('.groupsList').animate({'right': '100%'});
   $('.groupsList .button').animate({'right': '100%'});
 

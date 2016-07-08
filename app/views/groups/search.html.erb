@@ -1,0 +1,61 @@
+<div>
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+    <div class="body">
+      <aside class="sideBar">
+        <div class="subtitle baseBox">
+          <span class="icon-book baseBox"></span>
+          <div>
+            <h2>Acciones</h2>
+          </div>
+        </div>
+        <% if Group.all.length > 0 %>
+        <span class="baseBox find">
+        <%= form_tag '/search', :method => 'get' do %>
+          <p>
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag "Buscar", :name => nil, :class => "submitBtn" %>
+          </p>
+        <% end %>
+        </span>
+        <% end %>
+      </aside>
+      <section class="content">
+        <div>
+          <div class="subtitle baseBox">
+            <span class="icon-profile"></span>
+            <div>
+              <h2 id="specialityName">Búsqueda</h2>
+              <p>Mostrando resultados:</p>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <table>
+            <thead>
+              <tr>
+                <th>No. list</th>
+                <th>Nombre</th>
+                <th>Examen de admisión</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% offset = 0 %>
+              <% @groups.each do |a| %>
+              <% offset = offset + 1 %>
+                <tr>
+                  <td><%= offset %></td>
+                  <td><%= a.name %></td>
+                  <td><%= a.examMark %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <% else %>
+      <%= render 'noSesion' %>
+    <% end %>
+</div>

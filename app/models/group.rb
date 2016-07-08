@@ -1,4 +1,5 @@
 class Group < ActiveRecord::Base
+
  def self.to_csv
    CSV.generate do |csv|
      csv << column_names
@@ -15,4 +16,5 @@ class Group < ActiveRecord::Base
      end
    end
  end
+
 end

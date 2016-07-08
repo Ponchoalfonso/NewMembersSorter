@@ -1,7 +1,7 @@
 class PublicController < ApplicationController
 
   def admisions
-    @admisions = Group.all
+    @groups = Group.all
   end
 
 end

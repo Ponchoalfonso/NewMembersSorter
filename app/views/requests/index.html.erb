@@ -10,6 +10,7 @@
           </div>
         </div>
         <div class="actions">
+          <% if Group.all.length < 1 %>
           <span class="button baseBox" id="import">
             <span class="icon-folder-upload"></span>
             <h3>Importar</h3>
@@ -19,6 +20,20 @@
             <span class="icon-plus"></span>
             <h3>Nuevo</h3>
           </a>
+          <% else %>
+          <a href="/requests.xls" class="button baseBox">
+            <span class="icon-folder-download"></span>
+            <h3>Exportar solicitudes</h3>
+          </a>
+          <% end %>
+          <span class="baseBox find">
+          <%= form_tag requests_path, :method => 'get' do %>
+            <p>
+              <%= text_field_tag :search, params[:search] %>
+              <%= submit_tag "Buscar", :name => nil, :class => "submitBtn" %>
+            </p>
+          <% end %>
+          </span>
         </div>
       </aside>
       <section class="content">
@@ -27,14 +42,12 @@
             <span class="icon-address-book baseBox"></span>
             <div>
               <h2>Solicitudes actuales</h2>
-              <p>Esta es la lista de alumnos en protocolo de admisión.</p>
+              <p>Listando alumnos solicitantes.</p>
             </div>
           </div>
           <div class="info infoExtra">
             <p>
               Número de regisros actuales: <%= Request.all.length %><br>
-              Número de foráneos actuales: <%= Request.where(isForeign: true).length %><br>
-              Número de recomendados actuales: <%= Request.where(isRecommended: true).length %>
             </p>
           </div>
           <div class="info">
@@ -45,7 +58,6 @@
                   <th>Nombre</th>
                   <th>Promedio Secundaria</th>
                   <th>Examen de admisión</th>
-                  <th>Recomendado</th>
                   <th>Foráneo</th>
                   <th>Especialidad</th>
                   <th>Especialidad Secundaria</th>
@@ -60,13 +72,14 @@
                     <td><%= request.name %></td>
                     <td><%= request.schoolAverage %></td>
                     <td><%= request.examMark %></td>
-                    <td><%= request.isRecommended %></td>
                     <td><%= request.isForeign %></td>
                     <td><%= request.speciality %></td>
                     <td><%= request.secondSpeciality %></td>
+                    <% if Group.all.length < 1 %>
                     <td><%= link_to 'Show', request %></td>
                     <td><%= link_to 'Edit', edit_request_path(request) %></td>
                     <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <% end %>
                   </tr>
                 <% end %>
               </tbody>
