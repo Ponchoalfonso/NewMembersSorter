@@ -1,0 +1,54 @@
+<% if user_signed_in? %>
+
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Nombre:</strong>
+    <%= @group.name %>
+  </p>
+
+  <p>
+    <strong>Examen de admición:</strong>
+    <%= @group.examMark %>
+  </p>
+
+  <p>
+    <strong>Promedio de secundaria:</strong>
+    <%= @group.schoolAverage %>
+  </p>
+
+  <p>
+    <strong>Es foráneo:</strong>
+    <%= @group.isForeign %>
+  </p>
+
+  <p>
+    <strong>Primera opción:</strong>
+    <%= @group.speciality %>
+  </p>
+
+  <p>
+    <strong>Segunda opción:</strong>
+    <%= @group.secondSpeciality %>
+  </p>
+
+  <p>
+    <strong>Turno:</strong>
+    <%= @group.turn %>
+  </p>
+
+  <p>
+    <strong>Especialidad Definitiva:</strong>
+    <%= @group.finalSpeciality %>
+  </p>
+
+  <p>
+    <strong>Secondspeciality:</strong>
+    <%= @group.group %>
+  </p>
+
+  <%= link_to 'Edit', edit_group_path(@group) %> |
+  <%= link_to 'Back', groups_path %>
+<% else %>
+  <% render 'noSesion' %>
+<% end %>

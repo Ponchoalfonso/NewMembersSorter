@@ -137,9 +137,9 @@ class GroupsController < ApplicationController
       prueba = selectWhere(prueba, "finalSpeciality", $specs[2])
       prueba = selectWhere(prueba, "group", $g[0])
 
-      #@groups.each do |group|
-      #  group.save()
-      #end
+      @groups.each do |group|
+        group.save()
+      end
     else
       redirect_to groups_path()
     end#if_session
@@ -154,11 +154,11 @@ class GroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @request = Group.find(params[:id])
+      @group = Group.find(params[:id])
     end
       # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:request).permit(:name, :examMark, :schoolAverage, :isRecommended, :isForeign, :speciality, :secondSpeciality, :turn, :finalSpeciality, :group)
+      params.require(:group).permit(:name, :examMark, :schoolAverage, :isRecommended, :isForeign, :speciality, :secondSpeciality, :turn, :finalSpeciality, :group)
     end
 
   #Variables de apoyo en el método generateTurn()

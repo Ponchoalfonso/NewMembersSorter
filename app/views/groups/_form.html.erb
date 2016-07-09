@@ -1,0 +1,33 @@
+<%= form_for(@group) do |f| %>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+      <% @group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Nombre %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "Turno" %><br>
+    <%= f.text_field :turn %>
+  </div>
+  <div class="field">
+    <%= f.label "Especialidad definitiva" %><br>
+    <%= f.text_field :finalSpeciality %>
+  </div>
+  <div class="field">
+    <%= f.label "Grupo" %><br>
+    <%= f.text_field :group %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

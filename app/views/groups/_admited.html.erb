@@ -4,7 +4,7 @@
     <% $g.each do |g| %>
       <section class="content <%= "#{i}" %>">
         <div>
-          <div class="subtitle baseBox">
+          <div class="subtitle admited baseBox">
             <span class="icon-profile"></span>
             <div>
               <h2 id="specialityName"><%="#{s} '#{g}' #{t.capitalize}"%></h2>
@@ -24,12 +24,15 @@
             </thead>
             <tbody>
               <% offset = 0 %>
-              <% @groups.where(turn: t, finalSpeciality: s, group: g).each do |a| %>
+              <% @groups.where(turn: t, finalSpeciality: s, group: g).each do |group| %>
               <% offset = offset + 1 %>
                 <tr>
                   <td><%= offset %></td>
-                  <td><%= a.name %></td>
-                  <td><%= a.examMark %></td>
+                  <td><%= group.name %></td>
+                  <td><%= group.examMark %></td>
+                  <td><%= link_to 'Show', group %></td>
+                  <td><%= link_to 'Edit', edit_group_path(group) %></td>
+                  <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -67,16 +70,19 @@
       </thead>
       <tbody>
         <% offset = 0 %>
-        <% @groups.order("turn DESC", "finalSpeciality DESC").each do |a| %>
+        <% @groups.order("turn DESC", "finalSpeciality DESC").each do |group| %>
         <% offset = offset + 1 %>
           <tr>
             <td><%= offset %></td>
-            <td><%= a.name %></td>
-            <td><%= a.examMark %></td>
-            <td><%= a.schoolAverage %></td>
-            <td><%= a.group %></td>
-            <td><%= a.finalSpeciality %></td>
-            <td><%= a.turn %></td>
+            <td><%= group.name %></td>
+            <td><%= group.examMark %></td>
+            <td><%= group.schoolAverage %></td>
+            <td><%= group.group %></td>
+            <td><%= group.finalSpeciality %></td>
+            <td><%= group.turn %></td>
+            <td><%= link_to 'Show', group %></td>
+            <td><%= link_to 'Edit', edit_group_path(group) %></td>
+            <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>

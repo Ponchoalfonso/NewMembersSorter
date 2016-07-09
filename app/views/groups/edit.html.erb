@@ -1,0 +1,39 @@
+<div>
+  <% if user_signed_in? %>
+    <%= render 'header' %>
+    <div class="body">
+      <aside class="sideBar">
+        <div class="subtitle baseBox">
+          <span class="icon-book baseBox"></span>
+          <div>
+            <h2>Acciones</h2>
+          </div>
+        </div>
+      </aside>
+      <section class="content">
+        <div>
+          <div class="subtitle baseBox">
+            <span class="icon-pencil baseBox"></span>
+            <div>
+              <h2>Editar registro</h2>
+              <p>Modifica los campos y guarda los cambios.</p>
+            </div>
+          </div>
+          <div class="info">
+            <% if Group.all.length > 1 %>
+              <%= render 'form' %>
+              <%= link_to 'Show', @group %>
+              <%= link_to 'Back', groups_path %>
+            <% else %>
+              <p>
+                ¿Qué haces aquí? No deberías poder editar esto.
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </section>
+    </div>
+  <% else %>
+    <%= render 'noSesion'%>
+  <% end %>
+</div>
