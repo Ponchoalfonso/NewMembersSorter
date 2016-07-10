@@ -9,6 +9,12 @@ class RequestsController < ApplicationController
     else
       @requests = Request.all
     end
+
+    respond_to do |format|
+     format.html
+     format.csv { render text: @requests.to_csv }
+      format.xls { send_data @requests.to_csv(col_sep: "\t") }
+   end
   end
 
   # GET /requests/1

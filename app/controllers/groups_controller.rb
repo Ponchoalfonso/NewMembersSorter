@@ -28,14 +28,12 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
-=begin
-    @Request = Request.order.(:name)
     respond_to do |format|
      format.html
-     format.csv { render text: @Request.to_csv }
-      format.xls { send_data @Request.to_csv(col_sep: "\t") }
+     format.csv { render text: @groups.to_csv }
+      format.xls { send_data @groups.to_csv(col_sep: "\t") }
    end
-=end
+
   end
 
   def search
