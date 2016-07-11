@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
   $specCode = [0, 1, 2, 3, 4, 5]
 
   #Definición de la clase identificada
-  $specs = ["null", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mantenimiento automotriz"]
+  $specs = ["null", "Programación", "Administración de recursos humanos", "Electrónica", "Contabilidad", "Mantenimiento automotríz"]
 
   #Número de grupos por especialidad en cada turno
   $groupsPerTurn = [0, 2, 2, 1, 1, 1]
@@ -49,7 +49,6 @@ class GroupsController < ApplicationController
 
       Group.destroy_all
       #Request.destroy_all
-      #Request.reset_pk_sequences!
 
     end#if user_signed_in
   end
@@ -93,54 +92,373 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to requests_url, notice: 'Group fué eliminado con éxito.' }
+      format.html { redirect_to groups_path, notice: 'Group fué eliminado con éxito.' }
       format.json { head :no_content }
     end
   end
 
   def generate
-    if user_signed_in?
-      #Separamos a los aceptados de los demás
-      @accepted = Request.all.order("examMark DESC", "schoolAverage DESC").limit(600)
-      logger.info @accepted.length
+    #Datos generales
 
-      #Definimos offset
-      offset = 0
 
-      #Definimos @groups como un Array y así poder utilizar el método push()
-      @groups = Group.limit(0)
+          #Turno matutino
+          @admiM
+          @prograM
+          @conta
+          @electroM = Request.limit(0)
+          #Turno vespertino
+          @admiV
+          @prograV
+          @electroV = Request.limit(0)
+          @meca
 
-      #Iteramos a todos nuestros alumnos aceptados guardando a cada uno en la variable 'r'
-      @accepted.each do |r|
+          #Salones programacion
+          @prograMA
+          @prograMB
+          @prograVA
+          @prograVB
 
-        #Offset es el conteo de "Requests" dentro del ciclo
-        offset = offset + 1
+          #salones admi
+          @admiMA
+          @admiMB
+          @admiVA
+          @admiVB
 
-        #Guardamos cada "Request" en un array definiendo su turno, especialidad, y grupo para posteriormente guardarlos a todos en la base de datos
-        @groups.push(Group.new({
-          :name => r.name,
-          :examMark => r.examMark,
-          :schoolAverage => r.schoolAverage,
-          :isRecommended => r.isRecommended,
-          :isForeign => r.isForeign,
-          :speciality => r.speciality,
-          :secondSpeciality => r.secondSpeciality,
-          :finalSpeciality  => generateSpeciality(@groups, r),
-          :group => generateGroups(@groups, $currentSpeciality),
-          :turn => generateTurn(offset, $currentSpeciality, r.isForeign)
-        }))
+          @accepted = Request.all.order("examMark DESC", "schoolAverage DESC").limit(600)
 
-      end#each
-      prueba = selectWhere(@groups, "turn", "vespertino")
-      prueba = selectWhere(prueba, "finalSpeciality", $specs[2])
-      prueba = selectWhere(prueba, "group", $g[0])
+          if Accepted.all.length < 1
+            @todosAccepted = Accepted.limit(0)
+            #Modelo Accepted
+            @accepted.each do |r|
+              @todosAccepted.push(Accepted.new({
+                :name => r.name,
+                :examMark => r.examMark,
+                :schoolAverage => r.schoolAverage,
+                :isRecommended => r.isRecommended,
+                :isForeign => r.isForeign,
+                :speciality => r.speciality,
+                :secondSpeciality => r.secondSpeciality
+                }))
+              end
+              @todosAccepted.each do |g|
+                g.save()
+              end
+        end
+         #Modelo Resto
+         if Resto.all.length < 1
+           @restos2 = Resto.limit(0)
+           @accepted.each do |r|
+             @restos2.push(Resto.new({
+               :name => r.name,
+               :examMark => r.examMark,
+               :schoolAverage => r.schoolAverage,
+               :isRecommended => r.isRecommended,
+               :isForeign => r.isForeign,
+               :speciality => r.speciality,
+               :secondSpeciality => r.secondSpeciality
+               }))
+             end
 
-      @groups.each do |group|
-        group.save()
-      end
-    else
-      redirect_to groups_path()
-    end#if_session
+             @restos2.each do |g|
+               g.save()
+             end
+         end
+
+          @allAccepted = Accepted.all
+          @restos = Resto.all
+
+
+          #primera especialidad
+          @progra = @allAccepted.where(speciality:1).limit(200)
+          @p = 200 - @progra.length
+          delite @progra
+          @admi = @allAccepted.where(speciality: 2).limit(200)
+          @a = 200 - @admi.length
+          delite @admi
+          @electro = @allAccepted.where(speciality: 3).limit(100)
+          @e = 100 - @electro.length
+          delite @electro
+          @conta = @allAccepted.where(speciality: 4).limit(50)
+          @c = 50 - @conta.length
+          delite @conta
+          @meca = @allAccepted.where(speciality: 5).limit(50)
+          @m = 50 - @meca.length
+          delite @meca
+
+          #Segunda especialidad
+          @progra2 = @restos.where(secondSpeciality: 1).limit(@p)
+          delete2 @progra2
+          @admi2 = @restos.where(secondSpeciality: 2).limit(@a)
+          delete2 @admi2
+          @electro2 = @restos.where(secondSpeciality: 3).limit(@e)
+          delete2 @electro2
+          @conta2 = @restos.where(secondSpeciality: 4).limit(@c)
+          delete2 @conta2
+          @meca2 = @restos.where(secondSpeciality: 5).limit(@m)
+          delete2 @meca2
+          #rellena las especialidades con la segunda opcion
+
+          @progra2.each do |x|
+            @progra.push(x)
+          end
+          @admi2.each do |x|
+            @admi.push(x)
+          end
+          @electro2.each do |x|
+            @electro.push(x)
+          end
+          @conta2.each do |x|
+            @conta.push(x)
+          end
+          @meca2.each do |x|
+            @meca.push(x)
+          end
+
+          #Acomodo por turno y grupos
+
+          #Programacion
+          turno @progra
+
+          @prograM = @turnoM
+          @prograV = @turnoV
+
+          especialidad @prograM,@prograV
+
+          @prograMA  = @especialidadMA
+          @prograMB  = @especialidadMB
+          @prograVA  = @especialidadVA
+          @prograVB  = @especialidadVB
+
+          #Administracion
+          turno @admi
+
+          @admiM = @turnoM
+          @admiV = @turnoV
+
+          especialidad @admiM,@admiV
+
+          @admiMA  = @especialidadMA
+          @admiMB  = @especialidadMB
+          @admiVA  = @especialidadVA
+          @admiVB  = @especialidadVB
+
+          #Electronica
+          @electro.each do |x|
+            if x.isForeign == true
+                @electroM.push(x)
+            end
+          end
+
+          @i = 0
+          @electro.each do |x|
+            @i = @i + 1
+            if @i%2 == 0 and @electroM.length < 50 and x.isForeign == false
+              @electroM.push(x)
+            elsif x.isForeign == false
+              @electroV.push(x)
+            end
+          end
+
+
+        @groups = Group.limit(0)
+
+        @conta.each do |r|
+          @groups.push(Group.new({
+            :name => r.name,
+            :examMark => r.examMark,
+            :schoolAverage => r.schoolAverage,
+            :isRecommended => r.isRecommended,
+            :isForeign => r.isForeign,
+            :speciality => r.speciality,
+            :secondSpeciality => r.secondSpeciality,
+            :turn => "matutino",
+            :finalSpeciality  => "Contabilidad",
+            :group => "A"
+          }))
+        end
+        @electroM.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "matutino",
+              :finalSpeciality  => "Electrónica",
+              :group => "A"
+            }))
+        end
+
+
+        @electroV.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Electrónica",
+              :group => "A"
+            }))
+        end
+        @meca.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Mantenimiento automotríz",
+              :group => "A"
+            }))
+        end
+
+        #Salones programacion
+        @prograMA.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "matutino",
+              :finalSpeciality  => "Programación",
+              :group => "A"
+            }))
+        end
+        @prograMB.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "matutino",
+              :finalSpeciality  => "Programación",
+              :group => "B"
+            }))
+        end
+        @prograVA.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Programación",
+              :group => "A"
+            }))
+        end
+        @prograVB.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Programación",
+              :group => "B"
+            }))
+        end
+
+        #salones admi
+        @admiMA.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "matutino",
+              :finalSpeciality  => "Administración de recursos humanos",
+              :group => "A"
+            }))
+        end
+        @admiMB.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "matutino",
+              :finalSpeciality  => "Administración de recursos humanos",
+              :group => "B"
+            }))
+        end
+        @admiVA.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Administración de recursos humanos",
+              :group => "A"
+            }))
+        end
+        @admiVB.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "vespertino",
+              :finalSpeciality  => "Administración de recursos humanos",
+              :group => "B"
+            }))
+        end
+
+        @restos.each do |r|
+          @groups.push(Group.new({
+              :name => r.name,
+              :examMark => r.examMark,
+              :schoolAverage => r.schoolAverage,
+              :isRecommended => r.isRecommended,
+              :isForeign => r.isForeign,
+              :speciality => r.speciality,
+              :secondSpeciality => r.secondSpeciality,
+              :turn => "null",
+              :finalSpeciality  => "Exception",
+              :group => "null"
+            }))
+        end
+
+
+
+        if Group.all.length < 1
+          @groups.each do |g|
+            g.save()
+          end
+        end
 
   end#generate
 
@@ -213,89 +531,93 @@ class GroupsController < ApplicationController
 
   end#selectWhere
 
-  private
-  def generateSpeciality(groups, request)
+  #Metodos que ayudan acomodar a los alumnos
+    private
+    def turno general
+      @turnoM  = Request.limit(0)
+      @turnoV  = Request.limit(0)
+      @turno = general
+      @turno.each do |x|
+        if x.isForeign == true
+            @turnoM.push(x)
+        end
+      end
 
-    finalSpeciality ="null"
-
-    #Definimos el index de la especialidad
-    f = findIndex(request.speciality)
-    s = findIndex(request.secondSpeciality)
-
-    #Seleccionamos a los alumnos que hay actualmente en la primer y segunda especialidad
-    firstSelection = selectWhere(groups, "finalSpeciality", $specs[f])
-    secondSelection = selectWhere(groups, "finalSpeciality", $specs[s])
-
-    if firstSelection.length < $turns.length * $groupsPerTurn[f] * $limitPerGroup * $g.length
-      finalSpeciality = $specs[f]
-    elsif secondSelection.length < $turns.length * $groupsPerTurn[s] * $limitPerGroup * $g.length
-      finalSpeciality = $specs[s]
-    else
-      finalSpeciality = "Exception"
+      @i = 0
+      @turno.each do |x|
+        @i = @i + 1
+        if @i%2 == 0 and @turnoM.length < 100 and x.isForeign == false
+          @turnoM.push(x)
+        elsif x.isForeign == false
+          @turnoV.push(x)
+        end
+      end
+      return @turnoM,@turnoV
     end
 
-    $currentSpeciality = finalSpeciality
-    return finalSpeciality
+    private
+    def especialidad turnoM,turnoV
 
-  end#setGroup
+      @especialidadMA  = Request.limit(0)
+      @especialidadMB  = Request.limit(0)
+      @especialidadVA  = Request.limit(0)
+      @especialidadVB  = Request.limit(0)
 
-  private
-  def generateGroups(groups, finalSpeciality)
+      @especialidadM = turnoM
+      @i = 0
+      @especialidadM.each do |x|
+        @i = @i + 1
+        if @i%2 == 0
+          @especialidadMA.push(x)
+        else
+          @especialidadMB.push(x)
+        end
+      end
 
-    group = "null"
-
-    #Descartamos a los alumnos que no logran entrar ni en su primer ni sugunda especialidad
-    if finalSpeciality == "Exception"
-      group = "E"
+      @especialidadV = turnoV
+      @i = 0
+      @especialidadV.each do |x|
+        @i = @i + 1
+        if @i%2 == 0
+          @especialidadVA.push(x)
+        else
+          @especialidadVB.push(x)
+        end
+      end
+      return @especialidadMA,@especialidadMB,@especialidadVA,@especialidadVB
     end
 
-    #Generamos un indice
-    i = findIndex(finalSpeciality)
-
-    #Seleccionamos los alumnos de la especialidad definida
-    slection = selectWhere(groups, "finalSpeciality", $specs[i])
-
-    # Comparaciones #
-    if groups.length < $limitPerGroup * $groupsPerTurn[i] * $g.length
-      group = "A"
-    elsif groups.length >= $limitPerGroup * $groupsPerTurn[i] * $g.length and groups.length < $limitPerGroup * $groupsPerTurn[i] * $turns.length * $g.length
-      group = "B"
-    else
-      group = "EE" #Si alguien ve EE como grupo en algun error, hay un problema en pasadas lineas de código
+    private
+    def delite general
+      @delite = general
+      @delite.each do |x|
+      @restos.each do |j|
+          if j.name == x.name
+            j.delete
+          end
+        end
+      end
+      return @restos
     end
 
-    return group
-
-  end#generateGroups
-
-  private
-  def generateTurn(offset, finalSpeciality, foreign)
-
-    turn = ""
-
-    #Dividimos en turnos de 1 en 1 para equilibrar los alumnos de buen promedio
-    if offset%2 == 0
-      turn = "matutino"
-    else
-      turn = "vespertino"
-    end#if
-
-    #Una vez seleccionado el turno revisamos si es foráneo
-    if foreign
-      turn = "matutino"
+    private
+    def delete2 general
+      @delite = general
+      @delite.each do |x|
+      @restos.each do |j|
+          if j.name == x.name
+            j.name = ""
+            j.examMark = 0
+            j.schoolAverage = 0
+            j.isRecommended = false
+            j.isForeign = false
+            j.speciality = 0
+            j.secondSpeciality = 0
+          end
+        end
+      end
+      return @restos
     end
 
-    i = findIndex(finalSpeciality)
-
-    #Si le tocó turno vespertino por azar, automáticamente se va al turno matutino por ser de la especialidad de contabilidad
-    if i == 4
-      turn = "matutino"
-    elsif i == 5
-      turn = "vespertino"
-    end#if
-
-    return turn
-
-  end#generateTurn
 
 end#controller

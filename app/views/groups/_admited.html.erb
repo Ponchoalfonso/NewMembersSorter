@@ -2,9 +2,9 @@
 <% $turns.each do |t| %>
   <% $specs.each do |s| %>
     <% $g.each do |g| %>
-      <section class="content <%= "#{i}" %>">
+      <section class="content admited <%= "#{i}" %>">
         <div>
-          <div class="subtitle admited baseBox">
+          <div class="subtitle  baseBox">
             <span class="icon-profile"></span>
             <div>
               <h2 id="specialityName"><%="#{s} '#{g}' #{t.capitalize}"%></h2>
@@ -44,6 +44,51 @@
   <% end %>
 <% end %>
 <!-- Alumnos que no caben en su especialidad !-->
+<section class="content admited 99">
+  <div>
+    <div class="subtitle baseBox">
+      <span class="icon-profile"></span>
+      <div>
+        <h2 id="specialityName">Sin especialidad</h2>
+        <p>Mostrando alumnos que fueron aceptados pero su primera y segunda especialidad están llenas:</p>
+        <p>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="info">
+    <table>
+      <thead>
+        <tr>
+          <th>No. list</th>
+          <th>Nombre</th>
+          <th>Examen de admisión</th>
+          <th>Promedio de secundaria</th>
+          <th>Grupo</th>
+          <th>Especialidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% offset = 0 %>
+        <% @groups.where(finalSpeciality: "Mantenimiento automotríz").each do |group| %>
+        <% offset = offset + 1 %>
+          <tr>
+            <td><%= offset %></td>
+            <td><%= group.name %></td>
+            <td><%= group.examMark %></td>
+            <td><%= group.schoolAverage %></td>
+            <td><%= group.group %></td>
+            <td><%= group.finalSpeciality %></td>
+            <td><%= group.turn %></td>
+            <td><%= link_to 'Show', group %></td>
+            <td><%= link_to 'Edit', edit_group_path(group) %></td>
+            <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
 <section class="content admited error">
   <div>
     <div class="subtitle baseBox">
@@ -70,7 +115,7 @@
       </thead>
       <tbody>
         <% offset = 0 %>
-        <% @groups.order("turn DESC", "finalSpeciality DESC").each do |group| %>
+        <% @groups.where(finalSpeciality: "Exception").each do |group| %>
         <% offset = offset + 1 %>
           <tr>
             <td><%= offset %></td>

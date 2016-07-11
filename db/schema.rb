@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616024732) do
+ActiveRecord::Schema.define(version: 20160710002729) do
+
+  create_table "accepteds", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.decimal  "schoolAverage"
+    t.boolean  "isRecommended"
+    t.boolean  "isForeign"
+    t.string   "speciality"
+    t.string   "secondSpeciality"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -29,6 +41,18 @@ ActiveRecord::Schema.define(version: 20160616024732) do
   end
 
   create_table "requests", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "examMark"
+    t.decimal  "schoolAverage"
+    t.boolean  "isRecommended"
+    t.boolean  "isForeign"
+    t.string   "speciality"
+    t.string   "secondSpeciality"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "restos", force: :cascade do |t|
     t.string   "name"
     t.decimal  "examMark"
     t.decimal  "schoolAverage"
