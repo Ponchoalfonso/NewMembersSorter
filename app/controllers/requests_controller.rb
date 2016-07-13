@@ -15,6 +15,7 @@ class RequestsController < ApplicationController
      format.csv { render text: @requests.to_csv }
       format.xls { send_data @requests.to_csv(col_sep: "\t") }
    end
+
   end
 
   # GET /requests/1

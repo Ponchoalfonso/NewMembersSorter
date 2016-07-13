@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
+
     respond_to do |format|
      format.html
      format.csv { render text: @groups.to_csv }
@@ -48,7 +49,9 @@ class GroupsController < ApplicationController
     if user_signed_in? and Group.all.length > 0
 
       Group.destroy_all
-      #Request.destroy_all
+      Request.destroy_all
+      Accepted.destroy_all
+      Resto.destroy_all
 
     end#if user_signed_in
   end
@@ -166,7 +169,6 @@ class GroupsController < ApplicationController
 
           @allAccepted = Accepted.all
           @restos = Resto.all
-
 
           #primera especialidad
           @progra = @allAccepted.where(speciality:1).limit(200)
@@ -436,7 +438,7 @@ class GroupsController < ApplicationController
               :group => "B"
             }))
         end
-
+=begin
         @restos.each do |r|
           @groups.push(Group.new({
               :name => r.name,
@@ -451,7 +453,7 @@ class GroupsController < ApplicationController
               :group => "null"
             }))
         end
-
+=end
 
 
         if Group.all.length < 1

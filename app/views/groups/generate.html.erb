@@ -21,8 +21,8 @@
           <div class="subtitle baseBox">
             <span class="icon baseBox"></span>
             <div>
-              <h2>Grupos de programación</h2>
-              <p>Listando grupos: </p>
+              <h2>Sin especialidad</h2>
+              <p> </p>
             </div>
           </div>
           <div class="info">
@@ -38,12 +38,11 @@
               </thead>
 
               <tbody>
-                <% @groups.each do |group| %>
+                <% @restos.each do |group| %>
                   <tr>
+
                     <td><%= group.name %></td>
-                    <td><%= group.finalSpeciality %></td>
-                    <td><%= group.turn %></td>
-                    <td><%= group.group %></td>
+
                   </tr>
                 <% end %>
               </tbody>
